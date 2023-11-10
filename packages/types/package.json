@@ -1,0 +1,26 @@
+{
+  "name": "@gw2api/types",
+  "version": "0.0.1",
+  "description": "TypeScript types for all datastructures used by the Guild Wars 2 API",
+  "license": "MIT",
+  "main": "",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darthmaim/gw2api.git",
+    "directory": "packages/types"
+  },
+  "keywords": [
+    "gw2api",
+    "types",
+    "gw2",
+    "api",
+    "typescript"
+  ],
+  "scripts": {
+    "test": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

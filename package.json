@@ -1,0 +1,11 @@
+{
+  "name": "gw2api",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm test -w @gw2api/types"
+  },
+  "devDependencies": {}
+}
