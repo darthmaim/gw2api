@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darthmaim/gw2api.git",
+    "url": "git+https://github.com/GW2Treasures/gw2api-ts.git",
     "directory": "packages/fetch"
   },
   "keywords": [
