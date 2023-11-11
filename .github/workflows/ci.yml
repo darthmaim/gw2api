@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   build:
+    name: Build / Node ${{ matrix.node }}
     runs-on: ubuntu-latest
     
     strategy:
@@ -28,3 +29,12 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
+
+  success:
+    name: Success
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - run: jq --exit-status 'all(.result == "success")' <<< '${{ toJson(needs) }}'
+    - run: exit 0
