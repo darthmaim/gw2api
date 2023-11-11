@@ -1,0 +1,29 @@
+{
+  "name": "@gw2api/fetch",
+  "version": "0.0.1",
+  "description": "Tiny wrapper around fetch that returns type-safe responses",
+  "license": "MIT",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darthmaim/gw2api.git",
+    "directory": "packages/fetch"
+  },
+  "keywords": [
+    "gw2api",
+    "fetch",
+    "gw2",
+    "api"
+  ],
+  "scripts": {
+    "test": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@gw2api/types": "0.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
