@@ -1,4 +1,4 @@
-import type { AuthenticatedOptions, EndpointType, KnwownEndpoints, LocalizedOptions, OptionsByEndpoint } from '@gw2api/types';
+import type { AuthenticatedOptions, EndpointType, KnwownEndpoints, LocalizedOptions, OptionsByEndpoint } from '@gw2api/types/endpoints';
 import { SchemaVersionInput } from '@gw2api/types/schema';
 
 // TODO: make `options` optional if `OptionsByEndpoint<Url>` only contains optional props

@@ -1,3 +1,4 @@
+import { Item } from './data/item';
 import { SchemaAfter, SchemaVersionInput } from './schema';
 
 export type KnwownAuthenticatedEndpoints =
@@ -231,21 +232,3 @@ export type EndpointType<Url extends string, Schema extends SchemaVersionInput =
   unknown;
 
 type ValidateEndpointUrl<T extends string> = unknown extends EndpointType<T> ? 'unknown endpoint url' : T;
-
-// Test
-
-interface ItemBase {
-  id: number;
-}
-interface Item2020 extends ItemBase {
-  details: object;
-}
-interface Item2022 extends Item2020 {
-  name: string;
-}
-
-type Item<Schema extends SchemaVersionInput = undefined> =
-  Schema extends undefined ? ItemBase :
-  Schema extends SchemaAfter<'2022-03-09T02:00:00.000Z'> | 'latest' ? Item2022 :
-  Schema extends SchemaAfter<'2020-11-17T00:30:00.000Z'> ? Item2020 :
-  ItemBase

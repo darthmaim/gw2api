@@ -3,12 +3,24 @@
   "version": "0.0.1",
   "description": "TypeScript types for all datastructures used by the Guild Wars 2 API",
   "license": "MIT",
-  "main": "",
-  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GW2Treasures/gw2api-ts.git",
     "directory": "packages/types"
+  },
+  "exports": {
+    "./endpoints": {
+      "types": "./endpoints.d.ts"
+    },
+    "./data": {
+      "types": "./data.d.ts"
+    },
+    "./data/*": {
+      "types": "./data/*.d.ts"
+    },
+    "./schema": {
+      "types": "./schema.d.ts"
+    }
   },
   "keywords": [
     "gw2api",
