@@ -12,9 +12,6 @@
     "./endpoints": {
       "types": "./endpoints.d.ts"
     },
-    "./data": {
-      "types": "./data.d.ts"
-    },
     "./data/*": {
       "types": "./data/*.d.ts"
     },
