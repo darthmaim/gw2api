@@ -1,3 +1,4 @@
+import { Account } from './data/account';
 import { Item } from './data/item';
 import { SchemaVersion } from './schema';
 
@@ -322,6 +323,7 @@ type SchemaFromOptions<O extends Options> =
 
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
+  Url extends '/v2/account' ? Account<Schema> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, { id: string, url: string }> :
   Url extends `/v2/characters?ids=${number}` ? { name: string }[] :
