@@ -168,13 +168,110 @@ export type KnownUnauthorizedEndpoints =
   | '/v2/wvw/upgrades'
 
 export type KnownBulkExpandedEndpoints =
+  | '/v2/achievements'
+  | '/v2/achievements/categories'
+  | '/v2/achievements/groups'
+  | '/v2/backstory/answers'
+  | '/v2/backstory/questions'
+  | '/v2/characters'
+  | '/v2/colors'
+  | '/v2/commerce/listings'
+  | '/v2/commerce/prices'
+  | '/v2/continents'
+  | '/v2/currencies'
+  | '/v2/novelties'
+  | '/v2/files'
+  | '/v2/finishers'
+  | '/v2/guild/permissions'
+  | '/v2/guild/upgrades'
+  | '/v2/home/cats'
+  | '/v2/home/nodes'
   | '/v2/items'
-
-export type KnownBulkExpandedLocalizedEndpoints =
-  | '/v2/items'
+  | '/v2/itemstats'
+  | '/v2/legends'
+  | '/v2/maps'
+  | '/v2/masteries'
+  | '/v2/materials'
+  | '/v2/minis'
+  | '/v2/mounts/types'
+  | '/v2/mounts/skins'
+  | '/v2/novelties'
+  | '/v2/outfits'
+  | '/v2/pets'
+  | '/v2/profession'
+  | '/v2/pvp/amulets'
+  | '/v2/pvp/games'
+  | '/v2/pvp/seasons'
+  | '/v2/quaggans'
+  | '/v2/recipes'
+  | '/v2/skills'
+  | '/v2/skins'
+  | '/v2/specializations'
+  | '/v2/stories'
+  | '/v2/stories/seasons'
+  | '/v2/titles'
+  | '/v2/traits'
+  | '/v2/worlds'
+  | '/v2/wvw/abilities'
+  | '/v2/wvw/matches'
+  | '/v2/wvw/objectives'
 
 export type KnownLocalizedEndpoints =
+  | '/v2/achievements'
+  | '/v2/achievements/categories'
+  | '/v2/achievements/groups'
+  | '/v2/adventures'
+  | '/v2/backstory/answers'
+  | '/v2/backstory/questions'
+  | '/v2/colors'
+  | '/v2/continents'
+  | '/v2/currencies'
+  | '/v2/dungeons'
+  | '/v2/events'
+  | '/v2/finishers'
+  | '/v2/gemstore/catalog'
+  | '/v2/gliders'
+  | '/v2/guild/permissions'
+  | '/v2/guild/upgrades'
   | '/v2/items'
+  | '/v2/itemstats'
+  | '/v2/jadebots'
+  | '/v2/mailcarriers'
+  | '/v2/maps'
+  | '/v2/masteries'
+  | '/v2/materials'
+  | '/v2/minis'
+  | '/v2/mounts/skins'
+  | '/v2/mounts/types'
+  | '/v2/novelties'
+  | '/v2/outfits'
+  | '/v2/pets'
+  | '/v2/professions'
+  | '/v2/pvp/amulets'
+  | '/v2/pvp/heroes'
+  | '/v2/pvp/ranks'
+  | '/v2/pvp/rewardtracks'
+  | '/v2/pvp/runes'
+  | '/v2/pvp/seasons'
+  | '/v2/pvp/sigils'
+  | '/v2/quests'
+  | '/v2/races'
+  | '/v2/raids'
+  | '/v2/skiffs'
+  | '/v2/skills'
+  | '/v2/skins'
+  | '/v2/specializations'
+  | '/v2/stories'
+  | '/v2/stories/seasons'
+  | '/v2/titles'
+  | '/v2/traits'
+  | '/v2/vendors'
+  | '/v2/worlds'
+  | '/v2/wvw/abilities'
+  | '/v2/wvw/objectives'
+  | '/v2/wvw/ranks'
+  | '/v2/wvw/rewardtracks'
+  | '/v2/wvw/upgrades'
 
 export type KnwownEndpoints = KnwownAuthenticatedEndpoints | KnownUnauthorizedEndpoints | KnownBulkExpandedEndpoints | KnownLocalizedEndpoints;
 
@@ -190,10 +287,10 @@ type PaginationParameters = `page=${number}` | CombineParameters<`page=${number}
 // helper types for bulk requests
 type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> = `${Endpoint}/${Id}` | WithParameters<Endpoint, `id=${Id}`>
 type BulkExpandedManyEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints> = WithParameters<Endpoint, `ids=${string}` | PaginationParameters>
-type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number = number> =
+type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> =
   Endpoint | BulkExpandedSingleEndpointUrl<Endpoint, Id> |  BulkExpandedManyEndpointUrl<Endpoint>
 
-type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoints, Url extends string, T, Id extends string | number = number> =
+type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoints, Url extends string, Id extends string | number, T> =
   Url extends Endpoint ? Id[] :
   Url extends BulkExpandedSingleEndpointUrl<Endpoint, Id> ? T :
   Url extends BulkExpandedManyEndpointUrl<Endpoint> ? T[] :
@@ -203,7 +300,7 @@ type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoints, Url e
 type Options = {}
 
 export type LocalizedOptions = {
-  language?: 'de' | 'en' | 'es' | 'fr'
+  language?: 'de' | 'en' | 'es' | 'fr' | 'zh'
 }
 
 export type AuthenticatedOptions = {
@@ -225,10 +322,13 @@ type SchemaFromOptions<O extends Options> =
 
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
-  Url extends BulkExpandedEndpointUrl<'/v2/items'> ? BulkExpandedResponseType<'/v2/items', Url, Item<Schema>> :
-  Url extends '/v2/quaggans' ? string[] :
+  Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
+  Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, { id: string, url: string }> :
   Url extends `/v2/characters?ids=${number}` ? { name: string }[] :
   Url extends '/v2/characters' ? string[] :
+  // fallback for all bulk expanded urls
+  Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoints, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoints, Url, string | number, unknown> :
+  // fallback for all other urls
   unknown;
 
 type ValidateEndpointUrl<T extends string> = unknown extends EndpointType<T> ? 'unknown endpoint url' : T;
