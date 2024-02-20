@@ -308,18 +308,13 @@ export type AuthenticatedOptions = {
   accessToken: string
 }
 
-type OptionsByEndpoint<Endpoint extends string> =
+export type OptionsByEndpoint<Endpoint extends string> =
   Endpoint extends KnownBulkExpandedEndpoint ? Options :
   Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint> ? Options & LocalizedOptions :
   Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string> ? Options & LocalizedOptions :
   Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
   Endpoint extends KnwownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
   Options
-
-type SchemaFromOptions<O extends Options> =
-  O extends undefined ? undefined :
-  O extends { schema: infer Schema extends SchemaVersion } ? Schema :
-  undefined;
 
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =

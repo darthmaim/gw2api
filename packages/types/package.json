@@ -10,13 +10,13 @@
   },
   "exports": {
     "./endpoints": {
-      "types": "./endpoints.d.ts"
+      "types": "./endpoints.ts"
     },
     "./data/*": {
-      "types": "./data/*.d.ts"
+      "types": "./data/*.ts"
     },
     "./schema": {
-      "types": "./schema.d.ts"
+      "types": "./schema.ts"
     }
   },
   "keywords": [
