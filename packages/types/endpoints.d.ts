@@ -1,5 +1,5 @@
 import { Item } from './data/item';
-import { SchemaAfter, SchemaVersionInput } from './schema';
+import { SchemaVersion } from './schema';
 
 export type KnwownAuthenticatedEndpoints =
   | '/v2/account'
@@ -220,11 +220,11 @@ type OptionsByEndpoint<Endpoint extends string> =
 
 type SchemaFromOptions<O extends Options> =
   O extends undefined ? undefined :
-  O extends { schema: infer Schema extends SchemaVersionInput } ? Schema :
+  O extends { schema: infer Schema extends SchemaVersion } ? Schema :
   undefined;
 
 // result type for endpoint
-export type EndpointType<Url extends string, Schema extends SchemaVersionInput = undefined> =
+export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends BulkExpandedEndpointUrl<'/v2/items'> ? BulkExpandedResponseType<'/v2/items', Url, Item<Schema>> :
   Url extends '/v2/quaggans' ? string[] :
   Url extends `/v2/characters?ids=${number}` ? { name: string }[] :

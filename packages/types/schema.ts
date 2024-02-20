@@ -11,7 +11,7 @@ export type KnownSchemaVersion =
   | '2022-03-09T02:00:00.000Z'
   | '2022-03-23T19:00:00.000Z'
 
-export type SchemaVersionInput =
+export type SchemaVersion =
   | KnownSchemaVersion
   | 'latest'
   | undefined;
