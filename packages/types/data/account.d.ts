@@ -6,16 +6,6 @@ export type Account<Schema extends SchemaVersion = undefined> =
   Schema extends SchemaAfter<'2019-12-19T00:00:00.000Z'> | 'latest' ? Account_2019_12_19 :
   AccountBase;
 
-interface Account_2019_02_21 extends AccountBase {
-  /** An ISO-8601 standard timestamp of when the account information last changed as perceived by the API. */
-  last_modified: string;
-}
-
-interface Account_2019_12_19 extends Account_2019_02_21 {
-  /** The amount of build storage slot an account has unlocked. Requires the additional builds scope. */
-  build_storage_slots?: number;
-}
-
 interface AccountBase {
   /** The unique id of the account. */
   id: string
@@ -55,4 +45,14 @@ interface AccountBase {
 
   /** The account's personal wvw rank. Requires the additional progression scope. */
   wvw_rank?: number
+}
+
+interface Account_2019_02_21 extends AccountBase {
+  /** An ISO-8601 standard timestamp of when the account information last changed as perceived by the API. */
+  last_modified: string;
+}
+
+interface Account_2019_12_19 extends Account_2019_02_21 {
+  /** The amount of build storage slot an account has unlocked. Requires the additional builds scope. */
+  build_storage_slots?: number;
 }
