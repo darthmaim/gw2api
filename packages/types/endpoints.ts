@@ -1,6 +1,6 @@
 import { Account } from './data/account';
 import { Item } from './data/item';
-import { Tokeninfo } from './data/tokeninfo';
+import { Permission, Tokeninfo } from './data/tokeninfo';
 import { SchemaVersion } from './schema';
 
 export type KnwownAuthenticatedEndpoint =
@@ -298,6 +298,17 @@ type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoint, Url ex
   Url extends BulkExpandedManyEndpointUrl<Endpoint> ? T[] :
   unknown
 
+// createsubtoken request
+type CreateSubtokenUrl<Url extends KnownEndpoint> =
+  | WithParameters<Url, CombineParameters<`expire=${string}`, CombineParameters<`permissions=${string}`, `urls=${string}`>>>
+  | WithParameters<Url, CombineParameters<`expire=${string}`, `permissions=${string}`>>
+  | WithParameters<Url, CombineParameters<`expire=${string}`, `urls=${string}`>>
+  | WithParameters<Url, CombineParameters<`permissions=${string}`, `urls=${string}`>>
+  | WithParameters<Url, `expire=${string}`>
+  | WithParameters<Url, `permissions=${string}`>
+  | WithParameters<Url, `urls=${string}`>
+  | Url
+
 // options
 type Options = {}
 
@@ -315,11 +326,13 @@ export type OptionsByEndpoint<Endpoint extends string> =
   Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string> ? Options & LocalizedOptions :
   Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
   Endpoint extends KnwownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
+  Endpoint extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Options & AuthenticatedOptions :
   Options
 
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
+  Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? { subtoken: string } :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, { id: string, url: string }> :
   Url extends '/v2/tokeninfo' ? Tokeninfo<Schema> :
@@ -328,4 +341,4 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   // fallback for all other urls
   unknown;
 
-type ValidateEndpointUrl<T extends string> = unknown extends EndpointType<T> ? 'unknown endpoint url' : T;
+export type ValidateEndpointUrl<T extends string> = unknown extends EndpointType<T> ? 'unknown endpoint url' : T;
