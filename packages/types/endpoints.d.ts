@@ -1,6 +1,6 @@
-import type { Gw2Api } from './data';
+import { SchemaAfter, SchemaVersionInput } from './schema';
 
-export type KnwownAuthorizedEndpoints =
+export type KnwownAuthenticatedEndpoints =
   | '/v2/account'
   | '/v2/account/achievements'
   | '/v2/account/bank'
@@ -82,7 +82,7 @@ export type KnownUnauthorizedEndpoints =
   | '/v2/achievements/groups'
   | '/v2/adventures'
   | `/v2/adventures/${string}/leaderboards`
-  | `/v2/adventures/${string}/leaderboards/:board/:region`
+  | `/v2/adventures/${string}/leaderboards/${string}/${string}`
   | '/v2/backstory/answers'
   | '/v2/backstory/questions'
   | '/v2/build'
@@ -169,35 +169,83 @@ export type KnownUnauthorizedEndpoints =
 export type KnownBulkExpandedEndpoints =
   | '/v2/items'
 
-export type KnwownEndpoints = KnwownAuthorizedEndpoints | KnownUnauthorizedEndpoints | KnownBulkExpandedEndpoints;
+export type KnownBulkExpandedLocalizedEndpoints =
+  | '/v2/items'
+
+export type KnownLocalizedEndpoints =
+  | '/v2/items'
+
+export type KnwownEndpoints = KnwownAuthenticatedEndpoints | KnownUnauthorizedEndpoints | KnownBulkExpandedEndpoints | KnownLocalizedEndpoints;
 
 // helper types for parameters
-type CommonParameters = CombineParameters<`lang=${'de'|'en'|'es'|'fr'}`, `v=${string}`>;
-type CombineParameters<P1 extends string, P2 extends string> = P1 | P2 | `${P1}&${P2}` | `${P2}&${P1}`;
+type CombineParameters<P1 extends string, P2 extends string> = `${P1}&${P2}` | `${P2}&${P1}`;
 
-type WithParameters<Url extends string, Parameters extends string | undefined = undefined> = Parameters extends undefined
-  ? Url | `${Url}?${CommonParameters}`
-  : `${Url}?${Parameters | CombineParameters<Parameters, CommonParameters>}`;
+type WithParameters<Url extends string, Parameters extends string | undefined = undefined> =
+  Parameters extends undefined ? Url : `${Url}?${Parameters}`;
 
-type PageParameters = `page=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
+// helper for paginated endpoints
+type PaginationParameters = `page=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
 
 // helper types for bulk requests
-type BulkExpandedIdListEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints> = WithParameters<Endpoint>;
-type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> = WithParameters<`${Endpoint}/${Id}`> | WithParameters<Endpoint, `id=${Id}`>
-type BulkExpandedManyEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints> = WithParameters<Endpoint, `ids=${string}` | PageParameters>
-type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number = number> = BulkExpandedIdListEndpointUrl<Endpoint> | BulkExpandedSingleEndpointUrl<Endpoint, Id> |  BulkExpandedManyEndpointUrl<Endpoint>
+type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> = `${Endpoint}/${Id}` | WithParameters<Endpoint, `id=${Id}`>
+type BulkExpandedManyEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints> = WithParameters<Endpoint, `ids=${string}` | PaginationParameters>
+type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number = number> =
+  Endpoint | BulkExpandedSingleEndpointUrl<Endpoint, Id> |  BulkExpandedManyEndpointUrl<Endpoint>
 
-type BulkExpandedResponseType<Base extends KnownBulkExpandedEndpoints, Url extends string, T, Id extends string | number = number> =
-  Url extends BulkExpandedIdListEndpointUrl<Base> ? Id[] :
-  Url extends BulkExpandedSingleEndpointUrl<Base, Id> ? T :
-  Url extends BulkExpandedManyEndpointUrl<Base> ? T[] :
+type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoints, Url extends string, T, Id extends string | number = number> =
+  Url extends Endpoint ? Id[] :
+  Url extends BulkExpandedSingleEndpointUrl<Endpoint, Id> ? T :
+  Url extends BulkExpandedManyEndpointUrl<Endpoint> ? T[] :
   unknown
 
-export type EndpointType<T extends string> =
-  T extends BulkExpandedEndpointUrl<'/v2/items'> ? BulkExpandedResponseType<'/v2/items', T, Gw2Api.Item> :
-  T extends '/v2/quaggans' ? string[] :
-  T extends `/v2/characters?ids=${number}` ? { name: string }[] :
-  T extends '/v2/characters' ? string[] :
+// options
+type Options = {}
+
+export type LocalizedOptions = {
+  language?: 'de' | 'en' | 'es' | 'fr'
+}
+
+export type AuthenticatedOptions = {
+  accessToken: string
+}
+
+type OptionsByEndpoint<Endpoint extends string> =
+  Endpoint extends KnownBulkExpandedEndpoints ? Options :
+  Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoints & KnownLocalizedEndpoints> ? Options & LocalizedOptions :
+  Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoints & KnownLocalizedEndpoints, string> ? Options & LocalizedOptions :
+  Endpoint extends KnownLocalizedEndpoints ? Options & LocalizedOptions :
+  Endpoint extends KnwownAuthenticatedEndpoints ? Options & AuthenticatedOptions :
+  Options
+
+type SchemaFromOptions<O extends Options> =
+  O extends undefined ? undefined :
+  O extends { schema: infer Schema extends SchemaVersionInput } ? Schema :
+  undefined;
+
+// result type for endpoint
+export type EndpointType<Url extends string, Schema extends SchemaVersionInput = undefined> =
+  Url extends BulkExpandedEndpointUrl<'/v2/items'> ? BulkExpandedResponseType<'/v2/items', Url, Item<Schema>> :
+  Url extends '/v2/quaggans' ? string[] :
+  Url extends `/v2/characters?ids=${number}` ? { name: string }[] :
+  Url extends '/v2/characters' ? string[] :
   unknown;
 
 type ValidateEndpointUrl<T extends string> = unknown extends EndpointType<T> ? 'unknown endpoint url' : T;
+
+// Test
+
+interface ItemBase {
+  id: number;
+}
+interface Item2020 extends ItemBase {
+  details: object;
+}
+interface Item2022 extends Item2020 {
+  name: string;
+}
+
+type Item<Schema extends SchemaVersionInput = undefined> =
+  Schema extends undefined ? ItemBase :
+  Schema extends SchemaAfter<'2022-03-09T02:00:00.000Z'> | 'latest' ? Item2022 :
+  Schema extends SchemaAfter<'2020-11-17T00:30:00.000Z'> ? Item2020 :
+  ItemBase
