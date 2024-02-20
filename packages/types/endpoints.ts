@@ -1,5 +1,6 @@
 import { Account } from './data/account';
 import { Item } from './data/item';
+import { Tokeninfo } from './data/tokeninfo';
 import { SchemaVersion } from './schema';
 
 export type KnwownAuthenticatedEndpoint =
@@ -321,8 +322,7 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account' ? Account<Schema> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, { id: string, url: string }> :
-  Url extends `/v2/characters?ids=${number}` ? { name: string }[] :
-  Url extends '/v2/characters' ? string[] :
+  Url extends '/v2/tokeninfo' ? Tokeninfo<Schema> :
   // fallback for all bulk expanded urls
   Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoint, Url, string | number, unknown> :
   // fallback for all other urls
