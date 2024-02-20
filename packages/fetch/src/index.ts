@@ -1,10 +1,10 @@
-import type { AuthenticatedOptions, EndpointType, KnwownEndpoints, LocalizedOptions, OptionsByEndpoint } from '@gw2api/types/endpoints';
+import type { AuthenticatedOptions, EndpointType, KnownEndpoint, LocalizedOptions, OptionsByEndpoint } from '@gw2api/types/endpoints';
 import { SchemaVersion } from '@gw2api/types/schema';
 
 // TODO: make `options` optional if `OptionsByEndpoint<Url>` only contains optional props
 
 export function fetchGw2Api<
-  Url extends KnwownEndpoints | (string & {}),
+  Url extends KnownEndpoint | (string & {}),
   Schema extends SchemaVersion = undefined
 >(
   endpoint: Url,

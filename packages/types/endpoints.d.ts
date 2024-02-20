@@ -2,7 +2,7 @@ import { Account } from './data/account';
 import { Item } from './data/item';
 import { SchemaVersion } from './schema';
 
-export type KnwownAuthenticatedEndpoints =
+export type KnwownAuthenticatedEndpoint =
   | '/v2/account'
   | '/v2/account/achievements'
   | '/v2/account/bank'
@@ -74,7 +74,7 @@ export type KnwownAuthenticatedEndpoints =
   | '/v2/pvp/stats'
   | '/v2/tokeninfo'
 
-export type KnownUnauthorizedEndpoints =
+export type KnownUnauthorizedEndpoint =
   | '/v2/account/home'
   | '/v2/account/mounts'
   | '/v2/achievements'
@@ -168,7 +168,7 @@ export type KnownUnauthorizedEndpoints =
   | '/v2/wvw/rewardtracks'
   | '/v2/wvw/upgrades'
 
-export type KnownBulkExpandedEndpoints =
+export type KnownBulkExpandedEndpoint =
   | '/v2/achievements'
   | '/v2/achievements/categories'
   | '/v2/achievements/groups'
@@ -217,7 +217,7 @@ export type KnownBulkExpandedEndpoints =
   | '/v2/wvw/matches'
   | '/v2/wvw/objectives'
 
-export type KnownLocalizedEndpoints =
+export type KnownLocalizedEndpoint =
   | '/v2/achievements'
   | '/v2/achievements/categories'
   | '/v2/achievements/groups'
@@ -274,7 +274,7 @@ export type KnownLocalizedEndpoints =
   | '/v2/wvw/rewardtracks'
   | '/v2/wvw/upgrades'
 
-export type KnwownEndpoints = KnwownAuthenticatedEndpoints | KnownUnauthorizedEndpoints | KnownBulkExpandedEndpoints | KnownLocalizedEndpoints;
+export type KnownEndpoint = KnwownAuthenticatedEndpoint | KnownUnauthorizedEndpoint | KnownBulkExpandedEndpoint | KnownLocalizedEndpoint;
 
 // helper types for parameters
 type CombineParameters<P1 extends string, P2 extends string> = `${P1}&${P2}` | `${P2}&${P1}`;
@@ -286,12 +286,12 @@ type WithParameters<Url extends string, Parameters extends string | undefined = 
 type PaginationParameters = `page=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
 
 // helper types for bulk requests
-type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> = `${Endpoint}/${Id}` | WithParameters<Endpoint, `id=${Id}`>
-type BulkExpandedManyEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints> = WithParameters<Endpoint, `ids=${string}` | PaginationParameters>
-type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoints, Id extends string | number> =
+type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoint, Id extends string | number> = `${Endpoint}/${Id}` | WithParameters<Endpoint, `id=${Id}`>
+type BulkExpandedManyEndpointUrl<Endpoint extends KnownBulkExpandedEndpoint> = WithParameters<Endpoint, `ids=${string}` | PaginationParameters>
+type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoint, Id extends string | number> =
   Endpoint | BulkExpandedSingleEndpointUrl<Endpoint, Id> |  BulkExpandedManyEndpointUrl<Endpoint>
 
-type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoints, Url extends string, Id extends string | number, T> =
+type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoint, Url extends string, Id extends string | number, T> =
   Url extends Endpoint ? Id[] :
   Url extends BulkExpandedSingleEndpointUrl<Endpoint, Id> ? T :
   Url extends BulkExpandedManyEndpointUrl<Endpoint> ? T[] :
@@ -309,11 +309,11 @@ export type AuthenticatedOptions = {
 }
 
 type OptionsByEndpoint<Endpoint extends string> =
-  Endpoint extends KnownBulkExpandedEndpoints ? Options :
-  Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoints & KnownLocalizedEndpoints> ? Options & LocalizedOptions :
-  Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoints & KnownLocalizedEndpoints, string> ? Options & LocalizedOptions :
-  Endpoint extends KnownLocalizedEndpoints ? Options & LocalizedOptions :
-  Endpoint extends KnwownAuthenticatedEndpoints ? Options & AuthenticatedOptions :
+  Endpoint extends KnownBulkExpandedEndpoint ? Options :
+  Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint> ? Options & LocalizedOptions :
+  Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string> ? Options & LocalizedOptions :
+  Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
+  Endpoint extends KnwownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
   Options
 
 type SchemaFromOptions<O extends Options> =
@@ -329,7 +329,7 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends `/v2/characters?ids=${number}` ? { name: string }[] :
   Url extends '/v2/characters' ? string[] :
   // fallback for all bulk expanded urls
-  Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoints, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoints, Url, string | number, unknown> :
+  Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoint, Url, string | number, unknown> :
   // fallback for all other urls
   unknown;
 
