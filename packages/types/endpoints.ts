@@ -1,6 +1,8 @@
 import { Account } from './data/account';
+import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
-import { Permission, Tokeninfo } from './data/tokeninfo';
+import { Quaggan } from './data/quaggan';
+import { Tokeninfo } from './data/tokeninfo';
 import { SchemaVersion } from './schema';
 
 export type KnwownAuthenticatedEndpoint =
@@ -335,9 +337,9 @@ export type OptionsByEndpoint<Endpoint extends string> =
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
-  Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? { subtoken: string } :
+  Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
-  Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, { id: string, url: string }> :
+  Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
   Url extends '/v2/tokeninfo' ? Tokeninfo<Schema> :
   // fallback for all bulk expanded urls
   Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoint, Url, string | number, unknown> :
