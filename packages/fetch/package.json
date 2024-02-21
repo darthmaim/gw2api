@@ -18,12 +18,17 @@
   ],
   "scripts": {
     "test": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "publish-package": "gw2treasures-publish-package"
   },
   "dependencies": {
     "@gw2api/types": "0.0.1"
   },
   "devDependencies": {
+    "@gw2treasures/publish-package": "0.0.1",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
