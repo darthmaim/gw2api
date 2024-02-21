@@ -22,13 +22,21 @@ export function fetchGw2Api<
     url.searchParams.set('access_token', options.accessToken);
   }
 
-  return fetch(url).then((r) => {
+  return fetch(url, { redirect: 'manual' }).then((r) => {
     if(!r.ok) {
-      throw new Error( `The GW2 API call to '${url.toString()}' returned ${r.status} ${r.statusText}.`);
+      throw new Gw2ApiError( `The GW2 API call to '${url.toString()}' returned ${r.status} ${r.statusText}.`, r);
     }
+
+    // TODO: catch more errors
 
     return r.json();
   });
+}
+
+class Gw2ApiError extends Error {
+  constructor(message: string, public response: Response) {
+    super(message);
+  }
 }
 
 function hasLanguage(options: OptionsByEndpoint<any>): options is LocalizedOptions {

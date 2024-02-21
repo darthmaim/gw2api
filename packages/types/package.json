@@ -27,9 +27,15 @@
     "typescript"
   ],
   "scripts": {
-    "test": "tsc"
+    "test": "tsc",
+    "build": "tsc",
+    "publish-package": "gw2treasures-publish-package"
   },
   "devDependencies": {
+    "@gw2treasures/publish-package": "0.0.1",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
