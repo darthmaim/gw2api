@@ -33,7 +33,7 @@ export function fetchGw2Api<
   });
 }
 
-class Gw2ApiError extends Error {
+export class Gw2ApiError extends Error {
   constructor(message: string, public response: Response) {
     super(message);
   }

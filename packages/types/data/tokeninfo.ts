@@ -8,8 +8,8 @@ export type Tokeninfo<Schema extends SchemaVersion = undefined> =
 export type Permission = 'account' | 'builds' | 'characters' | 'guilds' | 'inventories' | 'progression' | 'pvp' | 'tradingpost' | 'unlocks' | 'wallet';
 
 interface TokeninfoBase {
-  /** The toke id */
-  id: number
+  /** The token id */
+  id: string
 
   /** The name of the base API key */
   name: string

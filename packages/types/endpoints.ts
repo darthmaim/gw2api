@@ -59,7 +59,10 @@ export type KnwownAuthenticatedEndpoint =
   | `/v2/characters/${string}/specializations`
   | `/v2/characters/${string}/training`
   | '/v2/commerce/delivery'
-  | '/v2/commerce/transactions'
+  | '/v2/commerce/transactions/current/buys'
+  | '/v2/commerce/transactions/current/sells'
+  | '/v2/commerce/transactions/history/buys'
+  | '/v2/commerce/transactions/history/sells'
   | '/v2/createsubtoken'
   | `/v2/guild/${string}`
   | `/v2/guild/${string}/log`
