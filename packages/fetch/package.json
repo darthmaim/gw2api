@@ -1,9 +1,9 @@
 {
   "name": "@gw2api/fetch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Tiny wrapper around fetch that returns type-safe responses",
   "license": "MIT",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
