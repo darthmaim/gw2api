@@ -36,6 +36,7 @@ export function fetchGw2Api<
 export class Gw2ApiError extends Error {
   constructor(message: string, public response: Response) {
     super(message);
+    this.name = 'Gw2ApiError';
   }
 }
 
