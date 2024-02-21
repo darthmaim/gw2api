@@ -38,5 +38,3 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           GIT_AUTHOR_EMAIL: git@gw2treasures.com
           GIT_AUTHOR_NAME: gw2treasures-release-bot
-        with:
-          setupGitUser: false
