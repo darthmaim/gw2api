@@ -40,59 +40,38 @@ jobs:
     - run: exit 0
 
   publish-npm:
-    name: Publish / npm / ${{ matrix.target }}
+    name: Publish / npm
     runs-on: ubuntu-latest
     needs: [success]
+    if: github.event_name == 'push'
     permissions:
-      contents: read
-      id-token: write
+      contents: write
       pull-requests: write
-    strategy:
-      matrix:
-        target: [ "@gw2api/types", "@gw2api/fetch" ]
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 21
-        cache: 'npm'
-        registry-url: 'https://registry.npmjs.org'
-    - run: npm ci
-    - name: Build package
-      run: npm run build -w ${{ matrix.target }}
-    - name: Run Publish
-      run: npm run publish-package -w ${{ matrix.target }}
-      id: publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        NPM_CONFIG_PROVENANCE: true
-        GITHUB_EVENT_NAME: ${{ github.event_name }}
-    - name: Find Comment
-      if: github.event_name == 'pull_request'
-      uses: peter-evans/find-comment@v3
-      id: fc
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: Publish / npm / ${{ matrix.target }}
-    - name: Delete comment if found but nothing will be published
-      if: github.event_name == 'pull_request' && steps.fc.outputs.comment-id && !steps.publish.outputs.publish
-      uses: actions/github-script@v7
-      with:
-        script: |
-          github.rest.issues.deleteComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            comment_id: ${{ steps.fc.outputs.comment-id }}
-          })
-    - name: Add comment with packages to be published
-      if: github.event_name == 'pull_request' && steps.publish.outputs.publish
-      uses: peter-evans/create-or-update-comment@v4
-      with:
-        comment-id: ${{ steps.fc.outputs.comment-id }}
-        issue-number: ${{ github.event.pull_request.number }}
-        edit-mode: replace
-        body: |
-          **Publish / npm / ${{ matrix.target }}**
-          Merging this PR will publish the npm package `${{ steps.publish.outputs.publish }}`
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 21
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - uses: tibdex/github-app-token@v2
+        id: generate-token
+        with:
+          app_id: ${{ secrets.GW2T_RELEASE_APP_ID }}
+          private_key: ${{ secrets.GW2T_RELEASE_APP_PRIVATE_KEY }}
+
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          NPM_CONFIG_PROVENANCE: true
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          publish: npm run release
