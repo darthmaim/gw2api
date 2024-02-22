@@ -46,6 +46,7 @@ jobs:
     if: github.event_name == 'push'
     permissions:
       contents: write
+      id-token: write
       pull-requests: write
     steps:
       - name: Checkout Repo
