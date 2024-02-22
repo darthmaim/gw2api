@@ -70,10 +70,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Setup git user
-        run: |
-          git config --global user.email "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
-          git config --global user.name "gw2treasures-release-bot[bot]"
+      # - name: Setup git user
+      #   run: |
+      #     git config --global user.email "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
+      #     git config --global user.name "gw2treasures-release-bot[bot]"
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
