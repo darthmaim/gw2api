@@ -49,8 +49,16 @@ jobs:
       id-token: write
       pull-requests: write
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.GW2T_RELEASE_APP_ID }}
+          private-key: ${{ secrets.GW2T_RELEASE_APP_PRIVATE_KEY }}
+
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Setup Node.js 21
         uses: actions/setup-node@v4
@@ -62,12 +70,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@v1
-        id: generate-token
-        with:
-          app-id: ${{ secrets.GW2T_RELEASE_APP_ID }}
-          private-key: ${{ secrets.GW2T_RELEASE_APP_PRIVATE_KEY }}
-
       - name: Setup git user
         run: |
           git config --global user.email "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
@@ -76,12 +78,10 @@ jobs:
       - name: Create Release Pull Request
         uses: changesets/action@v1
         env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           NPM_CONFIG_PROVENANCE: true
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           title: New Release
           commit: Create new release
           publish: npm run release
-          version: sh .github/scripts/version.sh
           setupGitUser: false
