@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "npm test -w @gw2api/types && npm test -w @gw2api/fetch"
+    "test": "npm test -ws",
+    "release": "npm run build -ws && changeset publish"
   },
   "dependencies": {
     "@changesets/cli": "^2.27.1"
