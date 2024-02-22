@@ -74,6 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           NPM_CONFIG_PROVENANCE: true
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GIT_COMMITER_NAME: "gw2treasures-release-bot[bot]"
+          GIT_COMMITER_EMAIL: "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
         with:
           title: New Release
           commit: Create new release
