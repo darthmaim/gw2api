@@ -1,8 +1,6 @@
 #!/sh
 set -ex
 
-find "$HOME" -name ".netrc"
-find . -name ".netrc"
+printf 'machine github.com\nlogin gw2treasures-release-bot[bot]\npassword %s\n' "$GITHUB_TOKEN" > "$HOME/.netrc"
 
-rm -f "$HOME/.netrc"
 npx changeset version
