@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.4
+
+### Patch Changes
+
+- 716cd7c: Update release workflow
+
 ## 0.0.3
 
 ### Patch Changes

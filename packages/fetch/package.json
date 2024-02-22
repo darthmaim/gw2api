@@ -1,6 +1,6 @@
 {
   "name": "@gw2api/fetch",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Tiny wrapper around fetch that returns type-safe responses",
   "license": "MIT",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@gw2api/types": "~0.0.3"
+    "@gw2api/types": "~0.0.4"
   },
   "publishConfig": {
     "access": "public"
