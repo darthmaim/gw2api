@@ -68,16 +68,17 @@ jobs:
           app_id: ${{ secrets.GW2T_RELEASE_APP_ID }}
           private_key: ${{ secrets.GW2T_RELEASE_APP_PRIVATE_KEY }}
 
+      - name: Setup git user
+        run: |
+          git config --global user.email "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
+          git config --global user.name "gw2treasures-release-bot[bot]"
+
       - name: Create Release Pull Request
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           NPM_CONFIG_PROVENANCE: true
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_COMMITTER_NAME: "gw2treasures-release-bot[bot]"
-          GIT_COMMITTER_EMAIL: "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
-          GIT_AUTHOR_NAME: "gw2treasures-release-bot[bot]"
-          GIT_AUTHOR_EMAIL: "160784075+gw2treasures-release-bot[bot]@users.noreply.github.com"
         with:
           title: New Release
           commit: Create new release
