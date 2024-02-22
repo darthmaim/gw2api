@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.0.6
+
+### Patch Changes
+
+- 5274645: test
+
 ## 0.0.5
 
 ### Patch Changes
