@@ -83,5 +83,5 @@ jobs:
           title: New Release
           commit: Create new release
           publish: npm run release
-          version: rm $HOME/.netrc && npx changeset version
+          version: .github/scripts/version.sh
           setupGitUser: false
