@@ -1,4 +1,5 @@
 import { Account } from './data/account';
+import { TransactionCurrent, TransactionHistoric } from './data/commerce';
 import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
 import { Quaggan } from './data/quaggan';
@@ -290,6 +291,7 @@ type WithParameters<Url extends string, Parameters extends string | undefined = 
 
 // helper for paginated endpoints
 type PaginationParameters = `page=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
+type PaginatedEndpointUrl<Endpoint extends KnownEndpoint> = Endpoint | WithParameters<Endpoint, PaginationParameters>
 
 // helper types for bulk requests
 type BulkExpandedSingleEndpointUrl<Endpoint extends KnownBulkExpandedEndpoint, Id extends string | number> = `${Endpoint}/${Id}` | WithParameters<Endpoint, `id=${Id}`>
@@ -340,6 +342,10 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
+  Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/buys'> ? TransactionCurrent[] :
+  Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/sells'> ? TransactionCurrent[] :
+  Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/history/buys'> ? TransactionHistoric[] :
+  Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/history/sells'> ? TransactionHistoric[] :
   Url extends '/v2/tokeninfo' ? Tokeninfo<Schema> :
   // fallback for all bulk expanded urls
   Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoint, Url, string | number, unknown> :
