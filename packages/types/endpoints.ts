@@ -1,5 +1,5 @@
 import { Account } from './data/account';
-import { TransactionCurrent, TransactionHistoric } from './data/commerce';
+import { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
 import { Quaggan } from './data/quaggan';
@@ -342,6 +342,8 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
+  Url extends BulkExpandedEndpointUrl<'/v2/commerce/listings', number> ? BulkExpandedResponseType<'/v2/commerce/listings', Url, number, Listing> :
+  Url extends BulkExpandedEndpointUrl<'/v2/commerce/prices', number> ? BulkExpandedResponseType<'/v2/commerce/prices', Url, number, Price> :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/buys'> ? TransactionCurrent[] :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/sells'> ? TransactionCurrent[] :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/history/buys'> ? TransactionHistoric[] :
