@@ -5,7 +5,7 @@ import { Quaggan } from './data/quaggan';
 import { Tokeninfo } from './data/tokeninfo';
 import { SchemaVersion } from './schema';
 
-export type KnwownAuthenticatedEndpoint =
+export type KnownAuthenticatedEndpoint =
   | '/v2/account'
   | '/v2/account/achievements'
   | '/v2/account/bank'
@@ -280,7 +280,7 @@ export type KnownLocalizedEndpoint =
   | '/v2/wvw/rewardtracks'
   | '/v2/wvw/upgrades'
 
-export type KnownEndpoint = KnwownAuthenticatedEndpoint | KnownUnauthorizedEndpoint | KnownBulkExpandedEndpoint | KnownLocalizedEndpoint;
+export type KnownEndpoint = KnownAuthenticatedEndpoint | KnownUnauthorizedEndpoint | KnownBulkExpandedEndpoint | KnownLocalizedEndpoint;
 
 // helper types for parameters
 type CombineParameters<P1 extends string, P2 extends string> = `${P1}&${P2}` | `${P2}&${P1}`;
@@ -330,7 +330,7 @@ export type OptionsByEndpoint<Endpoint extends string> =
   Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint> ? Options & LocalizedOptions :
   Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string> ? Options & LocalizedOptions :
   Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
-  Endpoint extends KnwownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
+  Endpoint extends KnownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
   Endpoint extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Options & AuthenticatedOptions :
   Options
 
