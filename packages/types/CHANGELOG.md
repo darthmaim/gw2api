@@ -1,5 +1,13 @@
 # @gw2api/types
 
+## 0.0.5
+
+### Patch Changes
+
+- 7aa6297: Fix typo in type `KnownAuthenticatedEndpoint`
+- 8faa21a: Add `/v2/commerce/listings` and `/v2/commerce/prices` types
+- 44e48ec: Add `/v2/commerce/transactions` endpoints
+
 ## 0.0.4
 
 ### Patch Changes
