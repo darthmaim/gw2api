@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.0.7
+
+### Patch Changes
+
+- c518876: Add `cache` option
+
 ## 0.0.6
 
 ### Patch Changes
