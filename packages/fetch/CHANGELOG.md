@@ -1,5 +1,15 @@
 # @gw2api/fetch
 
+## 0.0.6
+
+### Patch Changes
+
+- 7fa9d14: Add AbortController `signal` to `fetch` options.
+- Updated dependencies [7aa6297]
+- Updated dependencies [8faa21a]
+- Updated dependencies [44e48ec]
+  - @gw2api/types@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes
