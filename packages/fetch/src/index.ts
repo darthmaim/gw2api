@@ -8,7 +8,7 @@ export function fetchGw2Api<
   Schema extends SchemaVersion = undefined
 >(
   endpoint: Url,
-  options: { schema?: Schema } & OptionsByEndpoint<Url>
+  options: { schema?: Schema, signal?: AbortSignal } & OptionsByEndpoint<Url>
 ): Promise<EndpointType<Url, Schema>> {
   const url = new URL(endpoint, 'https://api.guildwars2.com/');
 
@@ -22,7 +22,7 @@ export function fetchGw2Api<
     url.searchParams.set('access_token', options.accessToken);
   }
 
-  return fetch(url, { redirect: 'manual' }).then((r) => {
+  return fetch(url, { redirect: 'manual', signal: options.signal }).then((r) => {
     if(!r.ok) {
       throw new Gw2ApiError( `The GW2 API call to '${url.toString()}' returned ${r.status} ${r.statusText}.`, r);
     }
