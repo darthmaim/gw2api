@@ -8,7 +8,7 @@ export function fetchGw2Api<
   Schema extends SchemaVersion = undefined
 >(
   endpoint: Url,
-  options: { schema?: Schema } & OptionsByEndpoint<Url> & FetchOptions
+  options: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions
 ): Promise<EndpointType<Url, Schema>> {
   const url = new URL(endpoint, 'https://api.guildwars2.com/');
 
@@ -23,6 +23,9 @@ export function fetchGw2Api<
   }
 
   return fetch(url, { redirect: 'manual', signal: options.signal, cache: options.cache }).then(async (r) => {
+    // call onResponse handler
+    await options.onResponse?.(r);
+
     // check if the response is json (`application/json; charset=utf-8`)
     const isJson = r.headers.get('content-type').startsWith('application/json');
 
@@ -58,6 +61,17 @@ export function fetchGw2Api<
 
     return json;
   });
+}
+
+export type FetchGw2ApiOptions<Schema extends SchemaVersion> = {
+  /** The schema to use when making the API request */
+  schema?: Schema;
+
+  /**
+   * onResponse handler. Called for all responses, successful or not.
+   * Make sure to clone the response in case of consuming the body.
+   */
+  onResponse?: (response: Response) => void | Promise<void>;
 }
 
 export type FetchOptions = {
