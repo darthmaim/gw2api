@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.2.0
+
+### Minor Changes
+
+- Add `onResponse` callback to fetch options ([#52](https://github.com/GW2Treasures/gw2api-ts/pull/52) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.1.0
 
 ### Minor Changes
