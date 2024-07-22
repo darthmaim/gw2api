@@ -341,6 +341,25 @@ export type OptionsByEndpoint<Endpoint extends string> =
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
   Url extends '/v2/account/achievements' ? AccountAchievement[] :
+  Url extends '/v2/account/dyes' ? number[] :
+  Url extends '/v2/account/emotes' ? string[] :
+  Url extends '/v2/account/gliders' ? number[] :
+  Url extends '/v2/account/home/nodes' ? string[] :
+  Url extends '/v2/account/jadebots' ? number[] :
+  Url extends '/v2/account/mailcarriers' ? number[] :
+  Url extends '/v2/account/mapchests' ? string[] :
+  Url extends '/v2/account/minis' ? number[] :
+  Url extends '/v2/account/mounts/skins' ? number[] :
+  Url extends '/v2/account/mounts/types' ? string[] :
+  Url extends '/v2/account/novelties' ? number[] :
+  Url extends '/v2/account/outfits' ? number[] :
+  Url extends '/v2/account/pvp/heroes' ? number[] :
+  Url extends '/v2/account/raids' ? string[] :
+  Url extends '/v2/account/recipes' ? number[] :
+  Url extends '/v2/account/skiffs' ? number[] :
+  Url extends '/v2/account/skins' ? number[] :
+  Url extends '/v2/account/titles' ? number[] :
+  Url extends '/v2/account/worldbosses' ? string[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
