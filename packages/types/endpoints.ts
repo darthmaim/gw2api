@@ -1,4 +1,5 @@
 import { Account } from './data/account';
+import { AccountAchievement } from './data/account-achievements';
 import { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
@@ -339,6 +340,7 @@ export type OptionsByEndpoint<Endpoint extends string> =
 // result type for endpoint
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
+  Url extends '/v2/account/achievements' ? AccountAchievement[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
