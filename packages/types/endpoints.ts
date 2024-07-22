@@ -7,6 +7,7 @@ import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
 import { Quaggan } from './data/quaggan';
 import { Tokeninfo } from './data/tokeninfo';
+import { WizardsVault } from './data/wizardsvault';
 import { SchemaVersion } from './schema';
 
 export type KnownAuthenticatedEndpoint =
@@ -280,6 +281,9 @@ export type KnownLocalizedEndpoint =
   | '/v2/stories/seasons'
   | '/v2/titles'
   | '/v2/traits'
+  | '/v2/wizardsvault'
+  | '/v2/wizardsvault/listings'
+  | '/v2/wizardsvault/objectives'
   | '/v2/vendors'
   | '/v2/worlds'
   | '/v2/wvw/abilities'
@@ -370,6 +374,7 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/wizardsvault/listings' ? AccountWizardsVaultListing[] :
   Url extends '/v2/account/wizardsvault/special' ? AccountWizardsVaultSpecialObjectives :
   Url extends '/v2/account/wizardsvault/weekly' ? AccountWizardsVaultMetaObjectives :
+  Url extends '/v2/wizardsvault' ? WizardsVault :
   Url extends '/v2/account/worldbosses' ? string[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
