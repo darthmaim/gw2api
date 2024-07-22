@@ -1,5 +1,6 @@
 import { Account } from './data/account';
 import { AccountAchievement } from './data/account-achievements';
+import { AccountWallet } from './data/account-wallet';
 import { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
@@ -359,6 +360,7 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/skiffs' ? number[] :
   Url extends '/v2/account/skins' ? number[] :
   Url extends '/v2/account/titles' ? number[] :
+  Url extends '/v2/account/wallet' ? AccountWallet[] :
   Url extends '/v2/account/worldbosses' ? string[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
