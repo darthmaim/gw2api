@@ -1,4 +1,4 @@
-import { SchemaAfter, SchemaVersion } from "../schema";
+import type { SchemaAfter, SchemaVersion } from "../schema";
 
 export type Item<Schema extends SchemaVersion = undefined> =
   Schema extends SchemaAfter<'2020-11-17T00:30:00.000Z'> | 'latest' ? Item_2020_11_17 :

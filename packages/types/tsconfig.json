@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "verbatimModuleSyntax": true
   },
   "exclude": ["node_modules"]
 }

@@ -1,14 +1,14 @@
-import { Account } from './data/account';
-import { AccountAchievement } from './data/account-achievements';
-import { AccountWallet } from './data/account-wallet';
-import { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
-import { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
-import { Createsubtoken } from './data/createsubtoken';
-import { Item } from './data/item';
-import { Quaggan } from './data/quaggan';
-import { Tokeninfo } from './data/tokeninfo';
-import { WizardsVault, WizardsVaultListing, WizardsVaultObjective } from './data/wizardsvault';
-import { SchemaVersion } from './schema';
+import type { Account } from './data/account';
+import type { AccountAchievement } from './data/account-achievements';
+import type { AccountWallet } from './data/account-wallet';
+import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
+import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
+import type { Createsubtoken } from './data/createsubtoken';
+import type { Item } from './data/item';
+import type { Quaggan } from './data/quaggan';
+import type { Tokeninfo } from './data/tokeninfo';
+import type { WizardsVault, WizardsVaultListing, WizardsVaultObjective } from './data/wizardsvault';
+import type { SchemaVersion } from './schema';
 
 export type KnownAuthenticatedEndpoint =
   | '/v2/account'

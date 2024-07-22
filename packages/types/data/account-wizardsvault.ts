@@ -1,4 +1,4 @@
-import { WizardsVaultListingType, WizardsVaultTrack } from './wizardsvault';
+import type { WizardsVaultListingType, WizardsVaultTrack } from './wizardsvault';
 
 /**
  * Accounts wizards-vault listings.
