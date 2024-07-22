@@ -1,6 +1,7 @@
 import { Account } from './data/account';
 import { AccountAchievement } from './data/account-achievements';
 import { AccountWallet } from './data/account-wallet';
+import { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
 import { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import { Createsubtoken } from './data/createsubtoken';
 import { Item } from './data/item';
@@ -44,6 +45,10 @@ export type KnownAuthenticatedEndpoint =
   | '/v2/account/skins'
   | '/v2/account/titles'
   | '/v2/account/wallet'
+  | '/v2/account/wizardsvault/daily'
+  | '/v2/account/wizardsvault/listings'
+  | '/v2/account/wizardsvault/special'
+  | '/v2/account/wizardsvault/weekly'
   | '/v2/account/worldbosses'
   | '/v2/characters'
   | `/v2/characters/${string}/backstory`
@@ -361,6 +366,10 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/skins' ? number[] :
   Url extends '/v2/account/titles' ? number[] :
   Url extends '/v2/account/wallet' ? AccountWallet[] :
+  Url extends '/v2/account/wizardsvault/daily' ? AccountWizardsVaultMetaObjectives :
+  Url extends '/v2/account/wizardsvault/listings' ? AccountWizardsVaultListing[] :
+  Url extends '/v2/account/wizardsvault/special' ? AccountWizardsVaultSpecialObjectives :
+  Url extends '/v2/account/wizardsvault/weekly' ? AccountWizardsVaultMetaObjectives :
   Url extends '/v2/account/worldbosses' ? string[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
