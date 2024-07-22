@@ -1,5 +1,14 @@
 # @gw2api/fetch
 
+## 0.1.0
+
+### Minor Changes
+
+- Catch more invalid responses from the Guild Wars 2 API: ([#44](https://github.com/GW2Treasures/gw2api-ts/pull/44) by [@darthmaim](https://github.com/darthmaim))
+  - Make sure the response is JSON
+  - Include `text` in thrown error if the error is a valid error response
+  - Catch `["v1", "v2"]` error
+
 ## 0.0.8
 
 ### Patch Changes
