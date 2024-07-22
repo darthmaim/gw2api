@@ -1,9 +1,8 @@
 import { SchemaAfter, SchemaVersion } from "../schema";
 
 export type Account<Schema extends SchemaVersion = undefined> =
-  Schema extends undefined ? AccountBase :
-  Schema extends SchemaAfter<'2019-02-21T00:00:00.000Z'> ? Account_2019_02_21 :
   Schema extends SchemaAfter<'2019-12-19T00:00:00.000Z'> | 'latest' ? Account_2019_12_19 :
+  Schema extends SchemaAfter<'2019-02-21T00:00:00.000Z'> ? Account_2019_02_21 :
   AccountBase;
 
 interface AccountBase {
