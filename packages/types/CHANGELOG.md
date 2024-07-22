@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.8
+
+### Patch Changes
+
+- Enable `verbatimModuleSyntax` ([#49](https://github.com/GW2Treasures/gw2api-ts/pull/49) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.7
 
 ### Patch Changes
