@@ -1,6 +1,4 @@
-type WizardsVaultListingType = 'Featured' | 'Normal' | 'Legacy';
-
-type WizardsVaultTrack = 'PvE' | 'PvP' | 'WvW';
+import { WizardsVaultListingType, WizardsVaultTrack } from './wizardsvault';
 
 /**
  * Accounts wizards-vault listings.
