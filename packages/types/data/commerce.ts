@@ -10,8 +10,8 @@ type ListingDetail = PriceDetail & {
 export type Price = {
   id: number,
   whitelisted: boolean,
-  buys: PriceDetail[],
-  sells: PriceDetail[],
+  buys: PriceDetail,
+  sells: PriceDetail,
 }
 
 export type Listing = {
