@@ -1,5 +1,41 @@
 # @gw2api/types
 
+## 0.0.6
+
+### Patch Changes
+
+- Add types for `/v2/account/wallet` ([#43](https://github.com/GW2Treasures/gw2api-ts/pull/43) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/account/achievements` ([#41](https://github.com/GW2Treasures/gw2api-ts/pull/41) by [@darthmaim](https://github.com/darthmaim))
+- Fix model schema resolution ([#39](https://github.com/GW2Treasures/gw2api-ts/pull/39) by [@darthmaim](https://github.com/darthmaim))
+- Add types for wizards vault endpoints ([#47](https://github.com/GW2Treasures/gw2api-ts/pull/47) by [@darthmaim](https://github.com/darthmaim))
+  - `/v2/account/wizardsvault/daily`
+  - `/v2/account/wizardsvault/listings`
+  - `/v2/account/wizardsvault/special`
+  - `/v2/account/wizardsvault/weekly`
+  - `/v2/wizardsvault`
+  - `/v2/wizardsvault/listings`
+  - `/v2/wizardsvault/objectives`
+- Add types for account endpoints that return a list of ids: ([#42](https://github.com/GW2Treasures/gw2api-ts/pull/42) by [@darthmaim](https://github.com/darthmaim))
+  - `/v2/account/dyes`
+  - `/v2/account/emotes`
+  - `/v2/account/gliders`
+  - `/v2/account/home/nodes`
+  - `/v2/account/jadebots`
+  - `/v2/account/mailcarriers`
+  - `/v2/account/mapchests`
+  - `/v2/account/minis`
+  - `/v2/account/mounts/skins`
+  - `/v2/account/mounts/types`
+  - `/v2/account/novelties`
+  - `/v2/account/outfits`
+  - `/v2/account/pvp/heroes`
+  - `/v2/account/raids`
+  - `/v2/account/recipes`
+  - `/v2/account/skiffs`
+  - `/v2/account/skins`
+  - `/v2/account/titles`
+  - `/v2/account/worldbosses`
+
 ## 0.0.5
 
 ### Patch Changes
