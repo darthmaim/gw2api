@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.7
+
+### Patch Changes
+
+- Fix type for `/v2/commerce/prices` ([`eba7a59`](https://github.com/GW2Treasures/gw2api-ts/commit/eba7a5923b1a563517d12a6d15b96ef8ebe7eece) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.6
 
 ### Patch Changes
