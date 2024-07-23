@@ -9,12 +9,13 @@ import type { CraftingDiscipline } from "./recipe";
  * @see https://wiki.guildwars2.com/wiki/API:2/characters
  */
 export type Character<Schema extends SchemaVersion = undefined> =
-  // always included
-  (CharacterBackstory & CharacterCore<Schema> & CharacterCrafting & CharacterEquipment & CharacterInventory & CharacterRecipes & CharacterTraining) &
-  // Schema version 2019-12-19T00:00:00.000Z or later, this endpoint will include v2/characters/:id/buildtabs and v2/characters/:id/equipmenttabs and will no longer include v2/characters/:id/skills and v2/characters/:id/specializations
-  (Schema extends undefined ? (CharacterSkills & CharacterSpecializations & CharacterExtras):
-  Schema extends SchemaAfter<'2019-12-19T00:00:00.000Z'> | 'latest' ? ({ build_tabs: CharacterBuildTab[], equipment_tabs: CharacterEquipmentTab[] } & CharacterEquipmentTab & CharacterExtras_2019_12_19) :
-  (CharacterSkills & CharacterSpecializations & CharacterExtras));
+  // always included. Some of these are `Partial<>` because they are only included with some scopes. This should be typed in the future if the scopes are known...
+  CharacterBackstory & CharacterCore<Schema> & CharacterCrafting & Partial<CharacterEquipment> & Partial<CharacterInventory> & Partial<CharacterRecipes> & Partial<CharacterTraining> & (
+    // Schema version 2019-12-19T00:00:00.000Z or later, this endpoint will include v2/characters/:id/buildtabs and v2/characters/:id/equipmenttabs and will no longer include v2/characters/:id/skills and v2/characters/:id/specializations
+    Schema extends undefined ? (Partial<CharacterSkills> & Partial<CharacterSpecializations> & Partial<CharacterExtras>):
+    Schema extends SchemaAfter<'2019-12-19T00:00:00.000Z'> | 'latest' ? ({ build_tabs?: CharacterBuildTab[], equipment_tabs?: CharacterEquipmentTab[] } & Partial<CharacterEquipmentTab> & CharacterExtras_2019_12_19) :
+    (Partial<CharacterSkills> & Partial<CharacterSpecializations> & CharacterExtras)
+  );
 
 interface CharacterExtras {
   /** Trained WvW abilities  */

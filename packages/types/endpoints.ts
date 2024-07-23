@@ -5,6 +5,7 @@ import type { AccountInventory } from './data/account-inventory';
 import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
+import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
 import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Item } from './data/item';
@@ -386,6 +387,18 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/wizardsvault/special' ? AccountWizardsVaultSpecialObjectives :
   Url extends '/v2/account/wizardsvault/weekly' ? AccountWizardsVaultMetaObjectives :
   Url extends '/v2/account/worldbosses' ? string[] :
+  Url extends `/v2/characters/${string}/backstory` ? CharacterBackstory :
+  Url extends `/v2/characters/${string}/buildtabs` ? CharacterBuildTab[] :
+  Url extends `/v2/characters/${string}/core` ? CharacterCore<Schema> :
+  Url extends `/v2/characters/${string}/crafting` ? CharacterCrafting :
+  Url extends `/v2/characters/${string}/equipment` ? CharacterEquipment :
+  Url extends `/v2/characters/${string}/equipmenttabs` ? CharacterEquipmentTab[] :
+  Url extends `/v2/characters/${string}/inventory` ? CharacterInventory :
+  Url extends `/v2/characters/${string}/recipes` ? CharacterRecipes :
+  Url extends `/v2/characters/${string}/skills` ? CharacterSkills :
+  Url extends `/v2/characters/${string}/specializations` ? CharacterSpecializations :
+  Url extends `/v2/characters/${string}/training` ? CharacterTraining :
+  Url extends BulkExpandedEndpointUrl<'/v2/characters', string> ? BulkExpandedResponseType<'/v2/characters', Url, string, Character<Schema>> :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :
