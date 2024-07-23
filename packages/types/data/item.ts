@@ -31,7 +31,7 @@ type ItemBase = {
     icon?: string;
     infix_upgrade?: {
       attributes: {
-        attribute: 'Power' | 'Precision' | 'Toughness' | 'Vitality' | 'ConditionDamage' | 'CritDamage' | 'Healing' | 'BoonDuration' | 'ConditionDuration' | 'AgonyResistance';
+        attribute: Attribute;
         modifier: number;
       }[];
       buff?: {
@@ -81,3 +81,46 @@ type ItemBase = {
   }[];
   vendor_value: number;
 };
+
+export type Attribute = 'Power' | 'Precision' | 'Toughness' | 'Vitality' | 'ConditionDamage' | 'CritDamage' | 'Healing' | 'BoonDuration' | 'ConditionDuration' | 'AgonyResistance';
+
+export interface ItemStack {
+  /** Item id */
+  id: number;
+
+  /** Amount of items */
+  count: number;
+
+  /** Charges remaining */
+  charges?: number;
+
+  /** Skin id of the item (only if not default) */
+  skin?: number;
+
+  /** Dyes applied */
+  dyes?: number[];
+
+  /** Item ids of Runes/Sigils */
+  upgrades?: number[];
+
+  /** The slot occupied by the upgrade at the corresponding position in `upgrades` */
+  upgrade_slot_indices?: number[];
+
+  /** Item ids of infusions */
+  infusions?: number[];
+
+  /** Binding status */
+  binding?: 'Account' | 'Character';
+
+  /** Character name if `binding` is `Character` */
+  bound_to?: string;
+
+  /** Stats applied to the item */
+  stats?: {
+    /** Itemstats Id */
+    id: number;
+
+    /** Stats */
+    attributes?: Partial<Record<Attribute, number>>
+  }
+}

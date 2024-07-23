@@ -1,10 +1,14 @@
 import type { Account } from './data/account';
 import type { AccountAchievement } from './data/account-achievements';
+import type { AccountBank } from './data/account-bank';
+import type { AccountInventory } from './data/account-inventory';
+import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
 import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Item } from './data/item';
+import type { MaterialCategory } from './data/material';
 import type { Quaggan } from './data/quaggan';
 import type { Tokeninfo } from './data/tokeninfo';
 import type { WizardsVault, WizardsVaultListing, WizardsVaultObjective } from './data/wizardsvault';
@@ -355,13 +359,16 @@ export type OptionsByEndpoint<Endpoint extends string> =
 export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
   Url extends '/v2/account/achievements' ? AccountAchievement[] :
+  Url extends '/v2/account/bank' ? AccountBank :
   Url extends '/v2/account/dyes' ? number[] :
   Url extends '/v2/account/emotes' ? string[] :
   Url extends '/v2/account/gliders' ? number[] :
   Url extends '/v2/account/home/nodes' ? string[] :
+  Url extends '/v2/account/inventory' ? AccountInventory :
   Url extends '/v2/account/jadebots' ? number[] :
   Url extends '/v2/account/mailcarriers' ? number[] :
   Url extends '/v2/account/mapchests' ? string[] :
+  Url extends '/v2/account/materials' ? AccountMaterials :
   Url extends '/v2/account/minis' ? number[] :
   Url extends '/v2/account/mounts/skins' ? number[] :
   Url extends '/v2/account/mounts/types' ? string[] :
@@ -378,12 +385,10 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/wizardsvault/listings' ? AccountWizardsVaultListing[] :
   Url extends '/v2/account/wizardsvault/special' ? AccountWizardsVaultSpecialObjectives :
   Url extends '/v2/account/wizardsvault/weekly' ? AccountWizardsVaultMetaObjectives :
-  Url extends '/v2/wizardsvault' ? WizardsVault :
-  Url extends BulkExpandedEndpointUrl<'/v2/wizardsvault/listings', number> ? BulkExpandedResponseType<'/v2/wizardsvault/listings', Url, number, WizardsVaultListing> :
-  Url extends BulkExpandedEndpointUrl<'/v2/wizardsvault/objectives', number> ? BulkExpandedResponseType<'/v2/wizardsvault/objectives', Url, number, WizardsVaultObjective> :
   Url extends '/v2/account/worldbosses' ? string[] :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
+  Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/listings', number> ? BulkExpandedResponseType<'/v2/commerce/listings', Url, number, Listing> :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/prices', number> ? BulkExpandedResponseType<'/v2/commerce/prices', Url, number, Price> :
@@ -392,6 +397,9 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/history/buys'> ? TransactionHistoric[] :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/history/sells'> ? TransactionHistoric[] :
   Url extends '/v2/tokeninfo' ? Tokeninfo<Schema> :
+  Url extends '/v2/wizardsvault' ? WizardsVault :
+  Url extends BulkExpandedEndpointUrl<'/v2/wizardsvault/listings', number> ? BulkExpandedResponseType<'/v2/wizardsvault/listings', Url, number, WizardsVaultListing> :
+  Url extends BulkExpandedEndpointUrl<'/v2/wizardsvault/objectives', number> ? BulkExpandedResponseType<'/v2/wizardsvault/objectives', Url, number, WizardsVaultObjective> :
   // fallback for all bulk expanded urls
   Url extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? BulkExpandedResponseType<KnownBulkExpandedEndpoint, Url, string | number, unknown> :
   // fallback for all other urls

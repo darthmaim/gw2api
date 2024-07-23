@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
     "noEmit": true,
+
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "verbatimModuleSyntax": true
   },
   "exclude": ["node_modules"]
