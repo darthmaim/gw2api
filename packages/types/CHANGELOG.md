@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.13
+
+### Patch Changes
+
+- Allow passing partial options for unknown endpoints ([#63](https://github.com/GW2Treasures/gw2api-ts/pull/63) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.12
 
 ### Patch Changes
