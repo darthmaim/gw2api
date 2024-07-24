@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.12
+
+### Patch Changes
+
+- Fix wrong type for `WizardsVaultObjective.title` ([#61](https://github.com/GW2Treasures/gw2api-ts/pull/61) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.11
 
 ### Patch Changes
