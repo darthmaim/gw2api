@@ -1,5 +1,29 @@
 # @gw2api/types
 
+## 0.0.10
+
+### Patch Changes
+
+- Improve endpoint type resolution for endpoints that are both authenticated and localized ([#58](https://github.com/GW2Treasures/gw2api-ts/pull/58) by [@darthmaim](https://github.com/darthmaim))
+- Add types for character endpoints ([#58](https://github.com/GW2Treasures/gw2api-ts/pull/58) by [@darthmaim](https://github.com/darthmaim))
+  - `/v2/characters`
+  - `/v2/characters/:id/backstory`
+  - `/v2/characters/:id/buildtabs`
+  - `/v2/characters/:id/core`
+  - `/v2/characters/:id/crafting`
+  - `/v2/characters/:id/equipment`
+  - `/v2/characters/:id/equipmenttabs`
+  - `/v2/characters/:id/inventory`
+  - `/v2/characters/:id/recipes`
+  - `/v2/characters/:id/skills`
+  - `/v2/characters/:id/specializations`
+  - `/v2/characters/:id/training`
+- Add types for new endpoints ([#56](https://github.com/GW2Treasures/gw2api-ts/pull/56) by [@darthmaim](https://github.com/darthmaim))
+  - `/v2/account/bank`
+  - `/v2/account/inventory`
+  - `/v2/account/material`
+  - `/v2/materials`
+
 ## 0.0.9
 
 ### Patch Changes
