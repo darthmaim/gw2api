@@ -1,14 +1,18 @@
 import type { AuthenticatedOptions, EndpointType, KnownEndpoint, LocalizedOptions, OptionsByEndpoint } from '@gw2api/types/endpoints';
 import { SchemaVersion } from '@gw2api/types/schema';
 
-// TODO: make `options` optional if `OptionsByEndpoint<Url>` only contains optional props
+type RequiredKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? never : K }[keyof T];
+
+// if OptionsByEndpoint<Url> has no required keys, make the options parameter optional
+type Args<Url extends string, Schema extends SchemaVersion> = RequiredKeys<OptionsByEndpoint<Url>> extends never
+  ? [endpoint: Url, options?: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions]
+  : [endpoint: Url, options: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions]
 
 export function fetchGw2Api<
   Url extends KnownEndpoint | (string & {}),
   Schema extends SchemaVersion = undefined
 >(
-  endpoint: Url,
-  options: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions
+  ...[endpoint, options]: Args<Url, Schema>
 ): Promise<EndpointType<Url, Schema>> {
   const url = new URL(endpoint, 'https://api.guildwars2.com/');
 
