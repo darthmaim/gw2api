@@ -362,7 +362,8 @@ export type OptionsByEndpoint<Endpoint extends string> =
   Endpoint extends KnownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
   Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
   Endpoint extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Options & AuthenticatedOptions :
-  Options
+  Endpoint extends KnownEndpoint | BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint, string | number> ? Options :
+  Partial<AuthenticatedOptions & LocalizedOptions>
 
 // result type for endpoint
 export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema extends SchemaVersion = undefined> =
