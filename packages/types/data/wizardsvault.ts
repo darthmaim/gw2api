@@ -57,7 +57,7 @@ export interface WizardsVaultObjective {
   id: number;
 
   /** The title of the objective */
-  title: number;
+  title: string;
 
   /** The track the objective belongs to */
   track: WizardsVaultTrack;
