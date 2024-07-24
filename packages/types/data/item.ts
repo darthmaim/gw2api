@@ -98,7 +98,7 @@ export interface ItemStack {
   skin?: number;
 
   /** Dyes applied */
-  dyes?: number[];
+  dyes?: Array<number | null>;
 
   /** Item ids of Runes/Sigils */
   upgrades?: number[];

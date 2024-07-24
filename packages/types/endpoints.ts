@@ -5,6 +5,7 @@ import type { AccountInventory } from './data/account-inventory';
 import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
+import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
 import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Item } from './data/item';
@@ -319,9 +320,15 @@ type BulkExpandedEndpointUrl<Endpoint extends KnownBulkExpandedEndpoint, Id exte
   Endpoint | BulkExpandedSingleEndpointUrl<Endpoint, Id> |  BulkExpandedManyEndpointUrl<Endpoint>
 
 type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoint, Url extends string, Id extends string | number, T> =
+  // base endpoint returns a list of ids
   Url extends Endpoint ? Id[] :
+  // make sure the id does not include a slash (if there are sub-endpoints, they have to be listed first in `EndpointType`)
+  Url extends `${Endpoint}/${Id}/${string}` ? unknown :
+  // handle single id requests (`endpoint/:id` and `endpoint?id=:id`)
   Url extends BulkExpandedSingleEndpointUrl<Endpoint, Id> ? T :
+  // handle multiple id requests (either `endpoint?ids=:ids` or paginated)
   Url extends BulkExpandedManyEndpointUrl<Endpoint> ? T[] :
+  // otherwise this is not a known bulk request
   unknown
 
 // createsubtoken request
@@ -347,16 +354,17 @@ export type AuthenticatedOptions = {
 }
 
 export type OptionsByEndpoint<Endpoint extends string> =
-  Endpoint extends KnownBulkExpandedEndpoint ? Options :
-  Endpoint extends BulkExpandedManyEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint> ? Options & LocalizedOptions :
-  Endpoint extends BulkExpandedSingleEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string> ? Options & LocalizedOptions :
-  Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
+  Endpoint extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint & KnownAuthenticatedEndpoint & KnownLocalizedEndpoint, string | number> ? Options & AuthenticatedOptions & LocalizedOptions :
+  Endpoint extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint & KnownLocalizedEndpoint, string | number> ? Options & LocalizedOptions :
+  Endpoint extends BulkExpandedEndpointUrl<KnownBulkExpandedEndpoint & KnownAuthenticatedEndpoint, string | number> ? Options & AuthenticatedOptions :
+  Endpoint extends KnownAuthenticatedEndpoint & KnownLocalizedEndpoint ? Options & AuthenticatedOptions & LocalizedOptions :
   Endpoint extends KnownAuthenticatedEndpoint ? Options & AuthenticatedOptions :
+  Endpoint extends KnownLocalizedEndpoint ? Options & LocalizedOptions :
   Endpoint extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Options & AuthenticatedOptions :
   Options
 
 // result type for endpoint
-export type EndpointType<Url extends string, Schema extends SchemaVersion = undefined> =
+export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema extends SchemaVersion = undefined> =
   Url extends '/v2/account' ? Account<Schema> :
   Url extends '/v2/account/achievements' ? AccountAchievement[] :
   Url extends '/v2/account/bank' ? AccountBank :
@@ -386,6 +394,18 @@ export type EndpointType<Url extends string, Schema extends SchemaVersion = unde
   Url extends '/v2/account/wizardsvault/special' ? AccountWizardsVaultSpecialObjectives :
   Url extends '/v2/account/wizardsvault/weekly' ? AccountWizardsVaultMetaObjectives :
   Url extends '/v2/account/worldbosses' ? string[] :
+  Url extends `/v2/characters/${string}/backstory` ? CharacterBackstory :
+  Url extends `/v2/characters/${string}/buildtabs` ? CharacterBuildTab[] :
+  Url extends `/v2/characters/${string}/core` ? CharacterCore<Schema> :
+  Url extends `/v2/characters/${string}/crafting` ? CharacterCrafting :
+  Url extends `/v2/characters/${string}/equipment` ? CharacterEquipment :
+  Url extends `/v2/characters/${string}/equipmenttabs` ? CharacterEquipmentTab[] :
+  Url extends `/v2/characters/${string}/inventory` ? CharacterInventory :
+  Url extends `/v2/characters/${string}/recipes` ? CharacterRecipes :
+  Url extends `/v2/characters/${string}/skills` ? CharacterSkills :
+  Url extends `/v2/characters/${string}/specializations` ? CharacterSpecializations :
+  Url extends `/v2/characters/${string}/training` ? CharacterTraining :
+  Url extends BulkExpandedEndpointUrl<'/v2/characters', string> ? BulkExpandedResponseType<'/v2/characters', Url, string, Character<Schema>> :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :
