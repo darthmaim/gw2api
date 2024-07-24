@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.3.0
+
+### Minor Changes
+
+- Make `options` parameter optional if it does not contain required properties ([#63](https://github.com/GW2Treasures/gw2api-ts/pull/63) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.2.0
 
 ### Minor Changes
