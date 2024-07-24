@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.11
+
+### Patch Changes
+
+- Fix `/v2/guild/upgrades` being matched as `/v2/guild/:id/` ([#59](https://github.com/GW2Treasures/gw2api-ts/pull/59) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.10
 
 ### Patch Changes
