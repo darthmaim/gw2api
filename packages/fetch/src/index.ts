@@ -8,7 +8,7 @@ type Args<Url extends string, Schema extends SchemaVersion> = RequiredKeys<Optio
   ? [endpoint: Url, options?: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions]
   : [endpoint: Url, options: FetchGw2ApiOptions<Schema> & OptionsByEndpoint<Url> & FetchOptions]
 
-export function fetchGw2Api<
+export async function fetchGw2Api<
   Url extends KnownEndpoint | (string & {}),
   Schema extends SchemaVersion = undefined
 >(
@@ -26,45 +26,46 @@ export function fetchGw2Api<
     url.searchParams.set('access_token', options.accessToken);
   }
 
-  return fetch(url, { redirect: 'manual', signal: options.signal, cache: options.cache }).then(async (r) => {
-    // call onResponse handler
-    await options.onResponse?.(r);
+  // call the API
+  const response = await fetch(url, { redirect: 'manual', signal: options.signal, cache: options.cache });
 
-    // check if the response is json (`application/json; charset=utf-8`)
-    const isJson = r.headers.get('content-type').startsWith('application/json');
+  // call onResponse handler
+  await options.onResponse?.(response);
 
-    // check if the response is an error
-    if(!r.ok) {
-      // if the response is JSON, it might have more details in the `text` prop
-      if(isJson) {
-        const error: unknown = await r.json();
+  // check if the response is json (`application/json; charset=utf-8`)
+  const isJson = response.headers.get('content-type').startsWith('application/json');
 
-        if(typeof error === 'object' && 'text' in error && typeof error.text === 'string') {
-          throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${r.status} ${r.statusText}: ${error.text}.`, r);
-        }
+  // check if the response is an error
+  if(!response.ok) {
+    // if the response is JSON, it might have more details in the `text` prop
+    if(isJson) {
+      const error: unknown = await response.json();
+
+      if(typeof error === 'object' && 'text' in error && typeof error.text === 'string') {
+        throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${response.status} ${response.statusText}: ${error.text}.`, response);
       }
-
-      // otherwise just throw error with the status code
-      throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${r.status} ${r.statusText}.`, r);
     }
 
-    // if the response is not JSON, throw an error
-    if(!isJson) {
-      throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did not respond with a JSON response`, r);
-    }
+    // otherwise just throw error with the status code
+    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${response.status} ${response.statusText}.`, response);
+  }
 
-    // parse json
-    const json = await r.json();
+  // if the response is not JSON, throw an error
+  if(!isJson) {
+    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did not respond with a JSON response`, response);
+  }
 
-    // check that json is not `["v1", "v2"]` which sometimes happens for authenticated endpoints
-    if(url.toString() !== 'https://api.guildwars2.com/' && Array.isArray(json) && json.length === 2 && json[0] === 'v1' && json[1] === 'v2') {
-      throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did returned an invalid response (["v1", "v2"])`, r);
-    }
+  // parse json
+  const json = await response.json();
 
-    // TODO: catch more errors
+  // check that json is not `["v1", "v2"]` which sometimes happens for authenticated endpoints
+  if(url.toString() !== 'https://api.guildwars2.com/' && Array.isArray(json) && json.length === 2 && json[0] === 'v1' && json[1] === 'v2') {
+    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did returned an invalid response (["v1", "v2"])`, response);
+  }
 
-    return json;
-  });
+  // TODO: catch more errors
+
+  return json;
 }
 
 export type FetchGw2ApiOptions<Schema extends SchemaVersion> = {
