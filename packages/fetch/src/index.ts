@@ -26,8 +26,28 @@ export async function fetchGw2Api<
     url.searchParams.set('access_token', options.accessToken);
   }
 
+  // build request
+  let request = new Request(url, {
+    // The GW2 API never uses redirects, so we want to error if we encounter one.
+    // We use `manual` instead of `error` here so we can throw our own `Gw2ApiError` with the response attached
+    redirect: 'manual',
+
+    // set signal and cache from options
+    signal: options.signal,
+    cache: options.cache
+  });
+
+  // if there is a onRequest handler registered, let it modify the request
+  if(options.onRequest) {
+    request = await options.onRequest(request);
+
+    if(!(request instanceof Request)) {
+      throw new Error(`onRequest has to return a Request`);
+    }
+  }
+
   // call the API
-  const response = await fetch(url, { redirect: 'manual', signal: options.signal, cache: options.cache });
+  const response = await fetch(request);
 
   // call onResponse handler
   await options.onResponse?.(response);
@@ -71,6 +91,9 @@ export async function fetchGw2Api<
 export type FetchGw2ApiOptions<Schema extends SchemaVersion> = {
   /** The schema to use when making the API request */
   schema?: Schema;
+
+  /** onRequest handler allows to modify the request made to the Guild Wars 2 API. */
+  onRequest?: (request: Request) => Request | Promise<Request>;
 
   /**
    * onResponse handler. Called for all responses, successful or not.
