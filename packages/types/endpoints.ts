@@ -6,6 +6,7 @@ import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
 import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
+import type { Color } from './data/color';
 import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Item } from './data/item';
@@ -409,6 +410,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends `/v2/characters/${string}/training` ? CharacterTraining :
   Url extends BulkExpandedEndpointUrl<'/v2/characters', string> ? BulkExpandedResponseType<'/v2/characters', Url, string, Character<Schema>> :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
+  Url extends BulkExpandedEndpointUrl<'/v2/colors', number> ? BulkExpandedResponseType<'/v2/colors', Url, number, Color> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
