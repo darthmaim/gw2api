@@ -1,3 +1,7 @@
+/**
+ * Color as returned from /v2/colors
+ * @see https://wiki.guildwars2.com/wiki/API:2/colors
+ */
 export type Color = {
   /** The color id */
   id: number;
