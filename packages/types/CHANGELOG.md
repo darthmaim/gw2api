@@ -1,5 +1,16 @@
 # @gw2api/types
 
+## 0.0.14
+
+### Patch Changes
+
+- Add types for `/v2/colors` ([`0a727f9`](https://github.com/GW2Treasures/gw2api-ts/commit/0a727f9a7371ee2bb9175dd0f253b21e6f388d15) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/currencies` ([`76bd812`](https://github.com/GW2Treasures/gw2api-ts/commit/76bd812d9a2e8a26d12c4baa0c1afbe7ad193391) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/titles` ([`3ecdca5`](https://github.com/GW2Treasures/gw2api-ts/commit/3ecdca5e923dbf4f4fb0863229e12ef27e101661) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/skins` ([`2badee8`](https://github.com/GW2Treasures/gw2api-ts/commit/2badee806b4b3c952e0da84ecedccccdeff1d5c5) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/recipes` ([`8e7ac8f`](https://github.com/GW2Treasures/gw2api-ts/commit/8e7ac8f2cb4c42dcc64e2aa53a115d48c1c8dea0) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/guild/upgrades` ([`eae3e58`](https://github.com/GW2Treasures/gw2api-ts/commit/eae3e58c9c6fb76003f8f6bbf1fd4442b77a5956) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.13
 
 ### Patch Changes
