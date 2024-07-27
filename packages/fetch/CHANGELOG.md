@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.4.0
+
+### Minor Changes
+
+- Add `onRequest` option to modify requests ([#65](https://github.com/GW2Treasures/gw2api-ts/pull/65) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.3.0
 
 ### Minor Changes
