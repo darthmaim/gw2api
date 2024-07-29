@@ -2,6 +2,7 @@ import type { Account } from './data/account';
 import type { AccountAchievement } from './data/account-achievements';
 import type { AccountBank } from './data/account-bank';
 import type { AccountInventory } from './data/account-inventory';
+import type { AccountLegendaryarmory } from './data/account-legendaryarmory';
 import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
@@ -12,6 +13,7 @@ import type { Createsubtoken } from './data/createsubtoken';
 import type { Currency } from './data/currency';
 import type { GuildUpgrade } from './data/guild';
 import type { Item } from './data/item';
+import type { Legendaryarmory } from './data/legendaryarmory';
 import type { MaterialCategory } from './data/material';
 import type { Quaggan } from './data/quaggan';
 import type { Recipe } from './data/recipe';
@@ -217,6 +219,7 @@ export type KnownBulkExpandedEndpoint =
   | '/v2/home/nodes'
   | '/v2/items'
   | '/v2/itemstats'
+  | '/v2/legendaryarmory'
   | '/v2/legends'
   | '/v2/maps'
   | '/v2/masteries'
@@ -382,6 +385,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends '/v2/account/home/nodes' ? string[] :
   Url extends '/v2/account/inventory' ? AccountInventory :
   Url extends '/v2/account/jadebots' ? number[] :
+  Url extends '/v2/account/legendaryarmory' ? AccountLegendaryarmory[] :
   Url extends '/v2/account/mailcarriers' ? number[] :
   Url extends '/v2/account/mapchests' ? string[] :
   Url extends '/v2/account/materials' ? AccountMaterials :
@@ -419,6 +423,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends BulkExpandedEndpointUrl<'/v2/currencies', number> ? BulkExpandedResponseType<'/v2/currencies', Url, number, Currency> :
   Url extends BulkExpandedEndpointUrl<'/v2/guild/upgrades', number> ? BulkExpandedResponseType<'/v2/guild/upgrades', Url, number, GuildUpgrade> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
+  Url extends BulkExpandedEndpointUrl<'/v2/legendaryarmory', number> ? BulkExpandedResponseType<'/v2/legendaryarmory', Url, number, Legendaryarmory> :
   Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :
   Url extends BulkExpandedEndpointUrl<'/v2/quaggans', string> ? BulkExpandedResponseType<'/v2/quaggans', Url, string, Quaggan> :
   Url extends BulkExpandedEndpointUrl<'/v2/recipes', number> ? BulkExpandedResponseType<'/v2/recipes', Url, number, Recipe<Schema>> :
