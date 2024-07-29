@@ -231,7 +231,7 @@ export interface CharacterEquipmentTab {
  */
 export interface CharacterInventory {
   /** The characters bags */
-  bags: {
+  bags: ({
     /** THe item id of the bag */
     id: number;
 
@@ -240,7 +240,7 @@ export interface CharacterInventory {
 
     /** The inventory of the bag */
     inventory: Array<ItemStack | null>
-  }[]
+  } | null)[]
 }
 
 /**
