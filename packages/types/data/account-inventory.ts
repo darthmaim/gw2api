@@ -9,4 +9,4 @@ import type { ItemStack } from './item';
 export type AccountInventory = Array<SharedInventoryItemStack | null>;
 
 // item stacks in the shared inventory can not be bound to a character
-type SharedInventoryItemStack = Omit<ItemStack, 'binding' | 'bound_to'> & { binding?: 'Account' };
+export type SharedInventoryItemStack = Omit<ItemStack, 'binding' | 'bound_to'> & { binding?: 'Account' };
