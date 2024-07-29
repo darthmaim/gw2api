@@ -1,5 +1,14 @@
 # @gw2api/types
 
+## 0.0.15
+
+### Patch Changes
+
+- Export `SharedInventoryItemStack` ([`145a019`](https://github.com/GW2Treasures/gw2api-ts/commit/145a019081616807dcb2a8efeed07f540202f13c) by [@darthmaim](https://github.com/darthmaim))
+- Omit `count` from `CharacterEquipmentEntry` ([`f28578c`](https://github.com/GW2Treasures/gw2api-ts/commit/f28578c120a4eade6a4d0b65ad9712ce0461cea4) by [@darthmaim](https://github.com/darthmaim))
+- Fix `CharacterInventory` type (`bags` can contain `null` entries) ([`2e3a287`](https://github.com/GW2Treasures/gw2api-ts/commit/2e3a2872b76dbf991b59bae847dc62df996558ce) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/account/legendaryarmory` and `/v2/legendaryarmory` ([`dfd22c6`](https://github.com/GW2Treasures/gw2api-ts/commit/dfd22c6f3ca74646dbef230660acc9b952e4cddb) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.14
 
 ### Patch Changes
