@@ -184,7 +184,7 @@ export type CharacterEquipmentEntry<Schema extends SchemaVersion = undefined> =
   Schema extends SchemaAfter<'2019-12-19T00:00:00.000Z'> | 'latest' ? CharacterEquipmentEntry_2019_12_19 :
   CharacterEquipmentEntryBase;
 
-interface CharacterEquipmentEntryBase extends Omit<ItemStack, 'upgrade_slot_indices'> {
+interface CharacterEquipmentEntryBase extends Omit<ItemStack, 'upgrade_slot_indices' | 'count'> {
   /** The equipment slot in which the item is slotted.  */
   slot: EquipmentSlot;
 }
