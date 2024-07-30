@@ -6,6 +6,9 @@ import type { AccountLegendaryarmory } from './data/account-legendaryarmory';
 import type { AccountMaterials } from './data/account-material';
 import type { AccountWallet } from './data/account-wallet';
 import type { AccountWizardsVaultListing, AccountWizardsVaultMetaObjectives, AccountWizardsVaultSpecialObjectives } from './data/account-wizardsvault';
+import type { Achievement } from './data/achievement';
+import type { AchievementCategory } from './data/achievement-category';
+import type { AchievementGroup } from './data/achievement-group';
 import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
 import type { Color } from './data/color';
 import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
@@ -419,6 +422,9 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends `/v2/characters/${string}/training` ? CharacterTraining :
   Url extends BulkExpandedEndpointUrl<'/v2/characters', string> ? BulkExpandedResponseType<'/v2/characters', Url, string, Character<Schema>> :
   Url extends CreateSubtokenUrl<'/v2/createsubtoken'> ? Createsubtoken :
+  Url extends BulkExpandedEndpointUrl<'/v2/achievements/categories', number> ? BulkExpandedResponseType<'/v2/achievements/categories', Url, number, AchievementCategory<Schema>> :
+  Url extends BulkExpandedEndpointUrl<'/v2/achievements/groups', number> ? BulkExpandedResponseType<'/v2/achievements/groups', Url, number, AchievementGroup> :
+  Url extends BulkExpandedEndpointUrl<'/v2/achievements', number> ? BulkExpandedResponseType<'/v2/achievements', Url, number, Achievement> :
   Url extends BulkExpandedEndpointUrl<'/v2/colors', number> ? BulkExpandedResponseType<'/v2/colors', Url, number, Color> :
   Url extends BulkExpandedEndpointUrl<'/v2/currencies', number> ? BulkExpandedResponseType<'/v2/currencies', Url, number, Currency> :
   Url extends BulkExpandedEndpointUrl<'/v2/guild/upgrades', number> ? BulkExpandedResponseType<'/v2/guild/upgrades', Url, number, GuildUpgrade> :
