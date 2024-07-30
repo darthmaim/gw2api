@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.16
+
+### Patch Changes
+
+- Add types for `/v2/achievements`, `/v2/achievements/categories` and `/v2/achievements/groups` ([`18c1e69`](https://github.com/GW2Treasures/gw2api-ts/commit/18c1e6916e31132cd072aa94a2475d5700cc6643) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.15
 
 ### Patch Changes
