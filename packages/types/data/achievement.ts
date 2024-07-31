@@ -58,14 +58,26 @@ export type AchievementFlags =
   | 'Permanent'
 
 export type AchievementBit =
-  | { type: 'Text', text: string }
-  | { type: 'Item' | 'Skin' | 'Minipet', id: number }
+  | AchievementBit.Text
+  | AchievementBit.ItemSkinMinipet
+
+export namespace AchievementBit {
+  export type Text = { type: 'Text', text: string }
+  export type ItemSkinMinipet = { type: 'Item' | 'Skin' | 'Minipet', id: number }
+}
 
 export type AchievementReward =
-  | { type: 'Item', id: number, count: number }
-  | { type: 'Title', id: number }
-  | { type: 'Mastery', id: number, region: MasteryRegion }
-  | { type: 'Coins', count: number }
+  | AchievementReward.Item
+  | AchievementReward.Title
+  | AchievementReward.Mastery
+  | AchievementReward.Coins
+
+export namespace AchievementReward {
+  export type Item = { type: 'Item', id: number, count: number }
+  export type Title = { type: 'Title', id: number }
+  export type Mastery = { type: 'Mastery', id: number, region: MasteryRegion }
+  export type Coins = { type: 'Coins', count: number }
+}
 
 export type MasteryRegion =
   | 'Tyria'    // core
