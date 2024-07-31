@@ -1,5 +1,11 @@
 # @gw2api/types
 
+## 0.0.18
+
+### Patch Changes
+
+- Fix `Item['details']` type on newer schema ([`63e42d1`](https://github.com/GW2Treasures/gw2api-ts/commit/63e42d1244461ed128e333ebc9828876bca49f85) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.17
 
 ### Patch Changes
