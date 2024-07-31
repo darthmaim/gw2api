@@ -1,5 +1,12 @@
 # @gw2api/types
 
+## 0.0.17
+
+### Patch Changes
+
+- Add types for `/v2/skills` ([`3f326bd`](https://github.com/GW2Treasures/gw2api-ts/commit/3f326bd5ef3f103e6fb9ea9d6ec4c1cb25265c4c) by [@darthmaim](https://github.com/darthmaim))
+- Export union types from Achievement ([`28bfd57`](https://github.com/GW2Treasures/gw2api-ts/commit/28bfd575f3b6dd16cead9ef2c1f622ce5ccb1359) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.16
 
 ### Patch Changes
