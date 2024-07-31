@@ -6,7 +6,7 @@ export type Item<Schema extends SchemaVersion = undefined> =
   ItemBase;
 
 type Item_2020_11_17 = Omit<ItemBase, 'details'> & {
-  details?: Omit<ItemBase['details'], 'secondary_suffix_item_id'> & {
+  details?: Omit<NonNullable<ItemBase['details']>, 'secondary_suffix_item_id'> & {
     secondary_suffix_item_id?: number;
   }
 };
