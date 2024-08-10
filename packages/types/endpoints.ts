@@ -1,6 +1,7 @@
 import type { Account } from './data/account';
 import type { AccountAchievement } from './data/account-achievements';
 import type { AccountBank } from './data/account-bank';
+import type { AccountHomesteadDecoration } from './data/account-homestead';
 import type { AccountInventory } from './data/account-inventory';
 import type { AccountLegendaryarmory } from './data/account-legendaryarmory';
 import type { AccountMaterials } from './data/account-material';
@@ -15,6 +16,7 @@ import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Currency } from './data/currency';
 import type { GuildUpgrade } from './data/guild';
+import type { HomesteadDecoration } from './data/homestead';
 import type { Item } from './data/item';
 import type { Legendaryarmory } from './data/legendaryarmory';
 import type { MaterialCategory } from './data/material';
@@ -40,6 +42,7 @@ export type KnownAuthenticatedEndpoint =
   | '/v2/account/gliders'
   | '/v2/account/home/cats'
   | '/v2/account/home/nodes'
+  | '/v2/account/homestead/decorations'
   | '/v2/account/inventory'
   | '/v2/account/jadebots'
   | '/v2/account/legendaryarmory'
@@ -142,6 +145,7 @@ export type KnownUnauthorizedEndpoint =
   | '/v2/home'
   | '/v2/home/cats'
   | '/v2/home/nodes'
+  | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
   | '/v2/jadebots'
@@ -221,6 +225,7 @@ export type KnownBulkExpandedEndpoint =
   | '/v2/guild/upgrades'
   | '/v2/home/cats'
   | '/v2/home/nodes'
+  | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
   | '/v2/legendaryarmory'
@@ -271,6 +276,7 @@ export type KnownLocalizedEndpoint =
   | '/v2/gliders'
   | '/v2/guild/permissions'
   | '/v2/guild/upgrades'
+  | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
   | '/v2/jadebots'
@@ -387,6 +393,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends '/v2/account/emotes' ? string[] :
   Url extends '/v2/account/gliders' ? number[] :
   Url extends '/v2/account/home/nodes' ? string[] :
+  Url extends '/v2/account/homestead/decorations' ? AccountHomesteadDecoration[] :
   Url extends '/v2/account/inventory' ? AccountInventory :
   Url extends '/v2/account/jadebots' ? number[] :
   Url extends '/v2/account/legendaryarmory' ? AccountLegendaryarmory[] :
@@ -429,6 +436,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends BulkExpandedEndpointUrl<'/v2/colors', number> ? BulkExpandedResponseType<'/v2/colors', Url, number, Color> :
   Url extends BulkExpandedEndpointUrl<'/v2/currencies', number> ? BulkExpandedResponseType<'/v2/currencies', Url, number, Currency> :
   Url extends BulkExpandedEndpointUrl<'/v2/guild/upgrades', number> ? BulkExpandedResponseType<'/v2/guild/upgrades', Url, number, GuildUpgrade> :
+  Url extends BulkExpandedEndpointUrl<'/v2/homestead/decorations', number> ? BulkExpandedResponseType<'/v2/homestead/decorations', Url, number, HomesteadDecoration> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/legendaryarmory', number> ? BulkExpandedResponseType<'/v2/legendaryarmory', Url, number, Legendaryarmory> :
   Url extends BulkExpandedEndpointUrl<'/v2/materials', number> ? BulkExpandedResponseType<'/v2/materials', Url, number, MaterialCategory> :

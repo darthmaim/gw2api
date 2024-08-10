@@ -1,6 +1,5 @@
 /**
  * Accounts legendary armory.
- * Required scopes: account, unlocks, inventories
  *
  * @see https://wiki.guildwars2.com/wiki/API:2/legendaryarmory
  */
