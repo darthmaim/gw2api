@@ -1,6 +1,7 @@
 import type { Account } from './data/account';
 import type { AccountAchievement } from './data/account-achievements';
 import type { AccountBank } from './data/account-bank';
+import type { AccountHomeCat } from './data/account-home';
 import type { AccountHomesteadDecoration } from './data/account-homestead';
 import type { AccountInventory } from './data/account-inventory';
 import type { AccountLegendaryarmory } from './data/account-legendaryarmory';
@@ -392,6 +393,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends '/v2/account/dyes' ? number[] :
   Url extends '/v2/account/emotes' ? string[] :
   Url extends '/v2/account/gliders' ? number[] :
+  Url extends '/v2/account/home/cats' ? AccountHomeCat<Schema>[] :
   Url extends '/v2/account/home/nodes' ? string[] :
   Url extends '/v2/account/homestead/decorations' ? AccountHomesteadDecoration[] :
   Url extends '/v2/account/inventory' ? AccountInventory :
