@@ -1,5 +1,13 @@
 # @gw2api/types
 
+## 0.0.19
+
+### Patch Changes
+
+- Add types for `/v2/home/cats` and `/v2/home/nodes` ([`fcd1158`](https://github.com/GW2Treasures/gw2api-ts/commit/fcd11589d076841490da7377028da68d001a3adc) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/homestead/decorations` and `/v2/account/homestead/decorations` ([#72](https://github.com/GW2Treasures/gw2api-ts/pull/72) by [@darthmaim](https://github.com/darthmaim))
+- Add type for `/v2/account/home/cats` ([`d97021e`](https://github.com/GW2Treasures/gw2api-ts/commit/d97021e2f34639b41754d4b425f96ee15ae4aebe) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.18
 
 ### Patch Changes
