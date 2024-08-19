@@ -55,6 +55,11 @@ export async function fetchGw2Api<
   // check if the response is json (`application/json; charset=utf-8`)
   const isJson = response.headers.get('content-type').startsWith('application/json');
 
+  // censor access token in url to not leak it in error messages
+  const erroredUrl = hasAccessToken(options)
+    ? url.toString().replace(options.accessToken, '***')
+    : url.toString();
+
   // check if the response is an error
   if(!response.ok) {
     // if the response is JSON, it might have more details in the `text` prop
@@ -62,17 +67,17 @@ export async function fetchGw2Api<
       const error: unknown = await response.json();
 
       if(typeof error === 'object' && 'text' in error && typeof error.text === 'string') {
-        throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${response.status} ${response.statusText}: ${error.text}.`, response);
+        throw new Gw2ApiError(`The GW2 API call to '${erroredUrl}' returned ${response.status} ${response.statusText}: ${error.text}.`, response);
       }
     }
 
     // otherwise just throw error with the status code
-    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' returned ${response.status} ${response.statusText}.`, response);
+    throw new Gw2ApiError(`The GW2 API call to '${erroredUrl}' returned ${response.status} ${response.statusText}.`, response);
   }
 
   // if the response is not JSON, throw an error
   if(!isJson) {
-    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did not respond with a JSON response`, response);
+    throw new Gw2ApiError(`The GW2 API call to '${erroredUrl}' did not respond with a JSON response`, response);
   }
 
   // parse json
@@ -80,7 +85,7 @@ export async function fetchGw2Api<
 
   // check that json is not `["v1", "v2"]` which sometimes happens for authenticated endpoints
   if(url.toString() !== 'https://api.guildwars2.com/' && Array.isArray(json) && json.length === 2 && json[0] === 'v1' && json[1] === 'v2') {
-    throw new Gw2ApiError(`The GW2 API call to '${url.toString()}' did returned an invalid response (["v1", "v2"])`, response);
+    throw new Gw2ApiError(`The GW2 API call to '${erroredUrl}' did returned an invalid response (["v1", "v2"])`, response);
   }
 
   // TODO: catch more errors
