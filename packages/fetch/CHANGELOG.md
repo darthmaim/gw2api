@@ -1,5 +1,11 @@
 # @gw2api/fetch
 
+## 0.4.1
+
+### Patch Changes
+
+- Don't leak access token in error messages ([`88114b2`](https://github.com/GW2Treasures/gw2api-ts/commit/88114b231a11859aae5f116835451d001791ce24) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.4.0
 
 ### Minor Changes
