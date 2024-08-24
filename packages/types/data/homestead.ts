@@ -30,3 +30,18 @@ export interface HomesteadDecorationCategory {
   /** The name of the category */
   name: string,
 }
+
+export interface HomesteadGlyph {
+  /** The glyph id */
+  id: string,
+
+  /** The corresponding glyph item id */
+  item_id: number,
+
+  /** The slot of this glyph */
+  slot: HomesteadGlyph.Slot,
+}
+
+export namespace HomesteadGlyph {
+  export type Slot = 'harvesting' | 'logging' | 'mining'
+}
