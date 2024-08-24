@@ -45,6 +45,7 @@ export type KnownAuthenticatedEndpoint =
   | '/v2/account/home/cats'
   | '/v2/account/home/nodes'
   | '/v2/account/homestead/decorations'
+  | '/v2/account/homestead/glyphs'
   | '/v2/account/inventory'
   | '/v2/account/jadebots'
   | '/v2/account/legendaryarmory'
@@ -402,6 +403,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends '/v2/account/home/cats' ? AccountHomeCat<Schema>[] :
   Url extends '/v2/account/home/nodes' ? string[] :
   Url extends '/v2/account/homestead/decorations' ? AccountHomesteadDecoration[] :
+  Url extends '/v2/account/homestead/glyphs' ? string[] :
   Url extends '/v2/account/inventory' ? AccountInventory :
   Url extends '/v2/account/jadebots' ? number[] :
   Url extends '/v2/account/legendaryarmory' ? AccountLegendaryarmory[] :
