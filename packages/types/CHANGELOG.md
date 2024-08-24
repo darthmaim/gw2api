@@ -1,5 +1,13 @@
 # @gw2api/types
 
+## 0.0.20
+
+### Patch Changes
+
+- Add types for `/v2/account/homestead/glyphs` ([`6e39a8a`](https://github.com/GW2Treasures/gw2api-ts/commit/6e39a8a224038606a15eeb4171f9c0d817fc28fc) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/homestead/decorations/categories` ([`2ef7d60`](https://github.com/GW2Treasures/gw2api-ts/commit/2ef7d60c292d2e34d08543232948d02845edecf1) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/homestead/glyphs` ([`e770961`](https://github.com/GW2Treasures/gw2api-ts/commit/e770961b0ff3c48f96364231fc930eb018b19fb3) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.19
 
 ### Patch Changes
