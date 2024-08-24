@@ -14,8 +14,19 @@ export interface HomesteadDecoration {
   description: string,
 
   /** The icon of the decoration */
-  icon: string
+  icon: string,
+
+  /** The categories this decoration is assigned to (see /v2/homestead/decorations/categories) */
+  categories: number[],
 
   /** The maximum amount that can be stored */
   max_count: number,
+}
+
+export interface HomesteadDecorationCategory {
+  /** The category id */
+  id: number,
+
+  /** The name of the category */
+  name: string,
 }

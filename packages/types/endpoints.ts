@@ -18,7 +18,7 @@ import type { Createsubtoken } from './data/createsubtoken';
 import type { Currency } from './data/currency';
 import type { GuildUpgrade } from './data/guild';
 import type { HomeCat, HomeNode } from './data/home';
-import type { HomesteadDecoration } from './data/homestead';
+import type { HomesteadDecoration, HomesteadDecorationCategory } from './data/homestead';
 import type { Item } from './data/item';
 import type { Legendaryarmory } from './data/legendaryarmory';
 import type { MaterialCategory } from './data/material';
@@ -147,6 +147,7 @@ export type KnownUnauthorizedEndpoint =
   | '/v2/home'
   | '/v2/home/cats'
   | '/v2/home/nodes'
+  | '/v2/homestead/decorations/categories'
   | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
@@ -227,6 +228,7 @@ export type KnownBulkExpandedEndpoint =
   | '/v2/guild/upgrades'
   | '/v2/home/cats'
   | '/v2/home/nodes'
+  | '/v2/homestead/decorations/categories'
   | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
@@ -278,6 +280,7 @@ export type KnownLocalizedEndpoint =
   | '/v2/gliders'
   | '/v2/guild/permissions'
   | '/v2/guild/upgrades'
+  | '/v2/homestead/decorations/categories'
   | '/v2/homestead/decorations'
   | '/v2/items'
   | '/v2/itemstats'
@@ -441,6 +444,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends BulkExpandedEndpointUrl<'/v2/guild/upgrades', number> ? BulkExpandedResponseType<'/v2/guild/upgrades', Url, number, GuildUpgrade> :
   Url extends BulkExpandedEndpointUrl<'/v2/home/cats', number> ? BulkExpandedResponseType<'/v2/home/cats', Url, number, HomeCat> :
   Url extends BulkExpandedEndpointUrl<'/v2/home/nodes', string> ? BulkExpandedResponseType<'/v2/home/nodes', Url, string, HomeNode> :
+  Url extends BulkExpandedEndpointUrl<'/v2/homestead/decorations/categories', number> ? BulkExpandedResponseType<'/v2/homestead/decorations/categories', Url, number, HomesteadDecorationCategory> :
   Url extends BulkExpandedEndpointUrl<'/v2/homestead/decorations', number> ? BulkExpandedResponseType<'/v2/homestead/decorations', Url, number, HomesteadDecoration> :
   Url extends BulkExpandedEndpointUrl<'/v2/items', number> ? BulkExpandedResponseType<'/v2/items', Url, number, Item<Schema>> :
   Url extends BulkExpandedEndpointUrl<'/v2/legendaryarmory', number> ? BulkExpandedResponseType<'/v2/legendaryarmory', Url, number, Legendaryarmory> :
