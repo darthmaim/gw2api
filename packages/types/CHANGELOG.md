@@ -1,5 +1,13 @@
 # @gw2api/types
 
+## 0.0.22
+
+### Patch Changes
+
+- Add types for `/v2/commerce/delivery` ([#82](https://github.com/GW2Treasures/gw2api-ts/pull/82) by [@darthmaim](https://github.com/darthmaim))
+- Add types for `/v2/commerce/exchange` ([#82](https://github.com/GW2Treasures/gw2api-ts/pull/82) by [@darthmaim](https://github.com/darthmaim))
+- Improve commerce types ([#82](https://github.com/GW2Treasures/gw2api-ts/pull/82) by [@darthmaim](https://github.com/darthmaim))
+
 ## 0.0.21
 
 ### Patch Changes
