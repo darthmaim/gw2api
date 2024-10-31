@@ -13,7 +13,7 @@ import type { AchievementCategory } from './data/achievement-category';
 import type { AchievementGroup } from './data/achievement-group';
 import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
 import type { Color } from './data/color';
-import type { Delivery, Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
+import type { Delivery, Exchange, Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Currency } from './data/currency';
 import type { GuildUpgrade } from './data/guild';
@@ -128,7 +128,8 @@ export type KnownUnauthorizedEndpoint =
   | '/v2/backstory/questions'
   | '/v2/build'
   | '/v2/colors'
-  | '/v2/commerce/exchange'
+  | '/v2/commerce/exchange/coins'
+  | '/v2/commerce/exchange/gems'
   | '/v2/commerce/listings'
   | '/v2/commerce/prices'
   | '/v2/continents'
@@ -359,7 +360,7 @@ type BulkExpandedResponseType<Endpoint extends KnownBulkExpandedEndpoint, Url ex
   // otherwise this is not a known bulk request
   unknown
 
-// createsubtoken request
+// /v2/createsubtoken request
 type CreateSubtokenUrl<Url extends KnownEndpoint> =
   | WithParameters<Url, CombineParameters<`expire=${string}`, CombineParameters<`permissions=${string}`, `urls=${string}`>>>
   | WithParameters<Url, CombineParameters<`expire=${string}`, `permissions=${string}`>>
@@ -369,6 +370,10 @@ type CreateSubtokenUrl<Url extends KnownEndpoint> =
   | WithParameters<Url, `permissions=${string}`>
   | WithParameters<Url, `urls=${string}`>
   | Url
+
+// /v2/commerce/exchange request
+type CommerceExchangeUrl<Url extends KnownEndpoint> =
+  | WithParameters<Url, `quantity=${number}`>
 
 // options
 type Options = {}
@@ -462,6 +467,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends BulkExpandedEndpointUrl<'/v2/skins', number> ? BulkExpandedResponseType<'/v2/skins', Url, number, Skin> :
   Url extends BulkExpandedEndpointUrl<'/v2/titles', number> ? BulkExpandedResponseType<'/v2/titles', Url, number, Title> :
   Url extends '/v2/commerce/delivery' ? Delivery :
+  Url extends CommerceExchangeUrl<'/v2/commerce/exchange/coins' | '/v2/commerce/exchange/gems'> ? Exchange :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/listings', number> ? BulkExpandedResponseType<'/v2/commerce/listings', Url, number, Listing> :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/prices', number> ? BulkExpandedResponseType<'/v2/commerce/prices', Url, number, Price> :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/buys'> ? TransactionCurrent[] :

@@ -22,6 +22,19 @@ export namespace Delivery {
 
 
 /**
+ * Listing as returned from /v2/commerce/exchange/{coins,gems}
+ * @see https://wiki.guildwars2.com/wiki/API:2/commerce/exchange
+ */
+export interface Exchange {
+  /** The amount of coins per single gem */
+  coins_per_gem: number,
+
+  /** The amount exchanged for the specified quantity */
+  quantity: number,
+}
+
+
+/**
  * Listing as returned from /v2/commerce/listings
  * @see https://wiki.guildwars2.com/wiki/API:2/commerce/listings
  */
