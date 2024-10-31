@@ -13,7 +13,7 @@ import type { AchievementCategory } from './data/achievement-category';
 import type { AchievementGroup } from './data/achievement-group';
 import type { Character, CharacterBackstory, CharacterBuildTab, CharacterCore, CharacterCrafting, CharacterEquipment, CharacterEquipmentTab, CharacterInventory, CharacterRecipes, CharacterSkills, CharacterSpecializations, CharacterTraining } from './data/character';
 import type { Color } from './data/color';
-import type { Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
+import type { Delivery, Listing, Price, TransactionCurrent, TransactionHistoric } from './data/commerce';
 import type { Createsubtoken } from './data/createsubtoken';
 import type { Currency } from './data/currency';
 import type { GuildUpgrade } from './data/guild';
@@ -461,6 +461,7 @@ export type EndpointType<Url extends KnownEndpoint | (string & {}), Schema exten
   Url extends BulkExpandedEndpointUrl<'/v2/skills', number> ? BulkExpandedResponseType<'/v2/skills', Url, number, Skill> :
   Url extends BulkExpandedEndpointUrl<'/v2/skins', number> ? BulkExpandedResponseType<'/v2/skins', Url, number, Skin> :
   Url extends BulkExpandedEndpointUrl<'/v2/titles', number> ? BulkExpandedResponseType<'/v2/titles', Url, number, Title> :
+  Url extends '/v2/commerce/delivery' ? Delivery :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/listings', number> ? BulkExpandedResponseType<'/v2/commerce/listings', Url, number, Listing> :
   Url extends BulkExpandedEndpointUrl<'/v2/commerce/prices', number> ? BulkExpandedResponseType<'/v2/commerce/prices', Url, number, Price> :
   Url extends PaginatedEndpointUrl<'/v2/commerce/transactions/current/buys'> ? TransactionCurrent[] :
