@@ -339,7 +339,7 @@ type WithParameters<Url extends string, Parameters extends string | undefined = 
   Parameters extends undefined ? Url : `${Url}?${Parameters}`;
 
 // helper for paginated endpoints
-type PaginationParameters = `page=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
+type PaginationParameters = `page=${number}` | `page_size=${number}` | CombineParameters<`page=${number}`, `page_size=${number}`>;
 type PaginatedEndpointUrl<Endpoint extends KnownEndpoint> = Endpoint | WithParameters<Endpoint, PaginationParameters>
 
 // helper types for bulk requests
